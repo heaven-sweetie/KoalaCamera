@@ -30,6 +30,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

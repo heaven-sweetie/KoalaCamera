@@ -8,8 +8,12 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 class ViewController: UIViewController {
+    
+    var photoSampleBuffer: CMSampleBuffer?
+    var previewPhotoSampleBuffer: CMSampleBuffer?
 
     var pickButton: UIButton = {
         var pickButton = UIButton()
@@ -26,6 +30,7 @@ class ViewController: UIViewController {
     }()
     
     var previewLayer: AVCaptureVideoPreviewLayer?
+    var captureSession = AVCaptureSession()
 
 //    UI Configuration
     func cameraViewConfigure() {
@@ -44,21 +49,19 @@ class ViewController: UIViewController {
                                      pickButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      pickButton.widthAnchor.constraint(equalTo: view.widthAnchor),
                                      pickButton.heightAnchor.constraint(equalToConstant: 100)])
+        
+        pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: UIControlEvents.touchUpInside)
     }
 
 //    CaptureSession Configuration
     func setupCaptureSession() {
-        let captureSession = AVCaptureSession()
         if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo), device.hasMediaType(AVMediaTypeVideo) {
-            captureSession.sessionPreset = AVCaptureSessionPresetMedium
+            captureSession.sessionPreset = AVCaptureSessionPresetHigh
             do {
                 let input = try AVCaptureDeviceInput(device: device)
                 captureSession.addInput(input)
-                let output = AVCaptureVideoDataOutput()
+                let output = AVCapturePhotoOutput()
                 captureSession.addOutput(output)
-                
-                let queue = DispatchQueue(label: "CameraOutputQueue")
-                output.setSampleBufferDelegate(self, queue: queue)
             } catch let error {
                 print(error)
             }
@@ -115,4 +118,92 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         
     }
     
+}
+
+extension ViewController : AVCapturePhotoCaptureDelegate {
+
+    public func tappedPickButton(sender: UIButton!) {
+        print("Tapped")
+        capturePhoto()
+    }
+
+    public func capturePhoto() {
+        let settings = AVCapturePhotoSettings()
+        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+                             kCVPixelBufferWidthKey as String: 512,
+                             kCVPixelBufferHeightKey as String: 512,
+                             ]
+
+        settings.isHighResolutionPhotoEnabled = false
+        settings.isAutoStillImageStabilizationEnabled = false
+        settings.previewPhotoFormat = previewFormat
+
+
+        if let outputs = captureSession.outputs, let output = outputs.first {
+            let photoOutput = output as! AVCapturePhotoOutput
+            photoOutput.capturePhoto(with: settings, delegate: self)
+        }
+    }
+
+    func capture(_ captureOutput: AVCapturePhotoOutput,
+                 didFinishProcessingPhotoSampleBuffer
+                 photoSampleBuffer: CMSampleBuffer?,
+                 previewPhotoSampleBuffer: CMSampleBuffer?,
+                 resolvedSettings: AVCaptureResolvedPhotoSettings,
+                 bracketSettings: AVCaptureBracketedStillImageSettings?,
+                 error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+        }
+
+        self.photoSampleBuffer = photoSampleBuffer
+        self.previewPhotoSampleBuffer = previewPhotoSampleBuffer
+    }
+
+    // https://developer.apple.com/library/prerelease/content/documentation/AudioVideo/Conceptual/PhotoCaptureGuide/index.html#//apple_ref/doc/uid/TP40017511-CH1-DontLinkElementID_19
+    func capture(_ captureOutput: AVCapturePhotoOutput,
+                 didFinishCaptureForResolvedSettings
+                 resolvedSettings: AVCaptureResolvedPhotoSettings,
+                 error: Error?) {
+
+        guard error == nil else {
+            print("Error in capture process: \(error)")
+            return
+        }
+
+        if let photoSampleBuffer = self.photoSampleBuffer {
+            saveSampleBufferToPhotoLibrary(photoSampleBuffer,
+                                           previewSampleBuffer: self.previewPhotoSampleBuffer,
+                                           completionHandler: { success, error in
+                                            if success {
+                                                print("Added JPEG photo to library.")
+                                            } else {
+                                                print("Error adding JPEG photo to library: \(error)")
+                                            }
+            })
+        }
+    }
+
+    func saveSampleBufferToPhotoLibrary(_ sampleBuffer: CMSampleBuffer,
+                                        previewSampleBuffer: CMSampleBuffer?,
+                                        completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
+        guard let jpegData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(
+            forJPEGSampleBuffer: sampleBuffer,
+            previewPhotoSampleBuffer: previewSampleBuffer)
+            else {
+                print("Unable to create JPEG data.")
+                completionHandler?(false, nil)
+                return
+        }
+
+        PHPhotoLibrary.shared().performChanges( {
+            let creationRequest = PHAssetCreationRequest.forAsset()
+            creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
+        }, completionHandler: { success, error in
+            DispatchQueue.main.async {
+                completionHandler?(success, error)
+            }
+        })
+    }
 }
