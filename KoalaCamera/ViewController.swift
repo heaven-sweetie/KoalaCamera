@@ -167,12 +167,12 @@ extension ViewController : AVCapturePhotoCaptureDelegate {
         settings.previewPhotoFormat = previewFormat
 
 
-        if let outputs = captureSession.outputs, let output = outputs.first {
-            let photoOutput = output as! AVCapturePhotoOutput
+        if let photoOutput = captureSession.outputs.first as? AVCapturePhotoOutput {
             photoOutput.capturePhoto(with: settings, delegate: self)
         }
     }
-
+    
+    // swiftlint:disable function_parameter_count
     func capture(_ captureOutput: AVCapturePhotoOutput,
                  didFinishProcessingPhotoSampleBuffer
                  photoSampleBuffer: CMSampleBuffer?,
@@ -188,6 +188,7 @@ extension ViewController : AVCapturePhotoCaptureDelegate {
         self.previewPhotoSampleBuffer = previewPhotoSampleBuffer
     }
 
+    // swiftlint:disable line_length
     // https://developer.apple.com/library/prerelease/content/documentation/AudioVideo/Conceptual/PhotoCaptureGuide/index.html#//apple_ref/doc/uid/TP40017511-CH1-DontLinkElementID_19
     func capture(_ captureOutput: AVCapturePhotoOutput,
                  didFinishCaptureForResolvedSettings
@@ -223,14 +224,14 @@ extension ViewController : AVCapturePhotoCaptureDelegate {
                 completionHandler?(false, nil)
                 return
         }
-
-        PHPhotoLibrary.shared().performChanges( {
+        
+        PHPhotoLibrary.shared().performChanges({
             let creationRequest = PHAssetCreationRequest.forAsset()
             creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
-        }, completionHandler: { success, error in
+        }) { success, error in
             DispatchQueue.main.async {
                 completionHandler?(success, error)
             }
-        })
+        }
     }
 }
