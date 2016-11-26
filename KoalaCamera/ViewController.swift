@@ -78,6 +78,7 @@ class ViewController: UIViewController {
     func updatePreviewConstraints() {
         if let previewLayer = previewLayer {
             previewLayer.frame = cameraView.frame
+            previewLayer.connection.videoOrientation = AVCaptureVideoOrientation.init(rawValue: UIDevice.current.orientation.rawValue)!
         }
     }
 
