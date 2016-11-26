@@ -7,19 +7,93 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
+    var pickButton: UIButton = {
+        var pickButton = UIButton()
+        pickButton.translatesAutoresizingMaskIntoConstraints = false
+        pickButton.setTitle("Pick", for: .normal)
+        pickButton.backgroundColor = UIColor.magenta
+        return pickButton
+    }()
+
+    var cameraView: UIView = {
+        var cameraView = UIView()
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
+        return cameraView
+    }()
+    
+//    UI Configuration
+    func cameraViewConfigure() {
+        view.addSubview(cameraView)
+
+        NSLayoutConstraint.activate([cameraView.topAnchor.constraint(equalTo: view.topAnchor),
+                                     cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                                     cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                                     cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
+    }
+
+    func pickButtonConfigure() {
+        view.addSubview(pickButton)
+
+        NSLayoutConstraint.activate([pickButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+                                     pickButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     pickButton.widthAnchor.constraint(equalToConstant: 44),
+                                     pickButton.heightAnchor.constraint(equalToConstant: 44)])
+    }
+
+//    CaptureSession Configuration
+    func setupCaptureSession() {
+        let captureSession = AVCaptureSession()
+        if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo), device.hasMediaType(AVMediaTypeVideo) {
+            captureSession.sessionPreset = AVCaptureSessionPresetMedium
+            do {
+                let input = try AVCaptureDeviceInput(device: device)
+                captureSession.addInput(input)
+                let output = AVCaptureVideoDataOutput()
+                captureSession.addOutput(output)
+                
+                let queue = DispatchQueue(label: "CameraOutputQueue")
+                output.setSampleBufferDelegate(self, queue: queue)
+            } catch let error {
+                print(error)
+            }
+            
+            let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            if let previewLayer = previewLayer {
+                previewLayer.frame = self.cameraView.frame
+                previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                self.cameraView.layer.addSublayer(previewLayer)
+                captureSession.startRunning()
+            }
+        } else {
+            print("Device hasn't media type")
+        }
+    }
+
+//    Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        cameraViewConfigure()
+        pickButtonConfigure()
+        setupCaptureSession()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
 }
 
+extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    public func captureOutput(_ captureOutput: AVCaptureOutput!,
+                              didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        
+    }
+    
+    public func captureOutput(_ captureOutput: AVCaptureOutput!,
+                              didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        
+    }
+    
+}
