@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         return cameraView
     }()
     
+    var previewLayer: AVCaptureVideoPreviewLayer?
+
 //    UI Configuration
     func cameraViewConfigure() {
         view.addSubview(cameraView)
@@ -61,7 +63,7 @@ class ViewController: UIViewController {
                 print(error)
             }
             
-            let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             if let previewLayer = previewLayer {
                 previewLayer.frame = self.cameraView.frame
                 previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -70,6 +72,12 @@ class ViewController: UIViewController {
             }
         } else {
             print("Device hasn't media type")
+        }
+    }
+
+    func updatePreviewConstraints() {
+        if let previewLayer = previewLayer {
+            previewLayer.frame = cameraView.frame
         }
     }
 
@@ -86,6 +94,10 @@ class ViewController: UIViewController {
         setupCaptureSession()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updatePreviewConstraints()
+    }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
