@@ -79,6 +79,10 @@ class ViewController: UIViewController {
         
         cameraViewConfigure()
         pickButtonConfigure()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupCaptureSession()
     }
     
