@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         var pickButton = UIButton()
         pickButton.translatesAutoresizingMaskIntoConstraints = false
         pickButton.setTitle("Pick", for: .normal)
-        pickButton.backgroundColor = UIColor.magenta
+        pickButton.backgroundColor = UIColor.magenta.withAlphaComponent(0.5)
         return pickButton
     }()
 
@@ -40,10 +40,10 @@ class ViewController: UIViewController {
     func pickButtonConfigure() {
         view.addSubview(pickButton)
 
-        NSLayoutConstraint.activate([pickButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+        NSLayoutConstraint.activate([pickButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      pickButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     pickButton.widthAnchor.constraint(equalToConstant: 44),
-                                     pickButton.heightAnchor.constraint(equalToConstant: 44)])
+                                     pickButton.widthAnchor.constraint(equalTo: view.widthAnchor),
+                                     pickButton.heightAnchor.constraint(equalToConstant: 100)])
     }
 
 //    CaptureSession Configuration
