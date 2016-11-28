@@ -29,12 +29,7 @@ class ViewController: UIViewController {
         return cameraView
     }()
     
-    var flashOverlayView: UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.0)
-        return view
-    }()
+    var overlayFlashView = OverlayFlashView()
     
     //    UI Configuration
     func cameraViewConfigure() {
@@ -44,15 +39,6 @@ class ViewController: UIViewController {
                                      cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-    }
-    
-    func flashOverlayViewConfigure() {
-        view.addSubview(flashOverlayView)
-        
-        NSLayoutConstraint.activate([flashOverlayView.topAnchor.constraint(equalTo: view.topAnchor),
-                                     flashOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     flashOverlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     flashOverlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
     }
     
     func pickButtonConfigure() {
@@ -72,7 +58,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         cameraViewConfigure()
-        flashOverlayViewConfigure()
+        overlayFlashView.addAsSubview(view: view)
         pickButtonConfigure()
     }
     
@@ -101,20 +87,11 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
 }
 
-extension ViewController {
-    public func blinkScreen() {
-        flashOverlayView.backgroundColor = flashOverlayView.backgroundColor?.withAlphaComponent(1.0)
-        UIView.animate(withDuration: 0.3) {
-            self.flashOverlayView.backgroundColor = self.flashOverlayView.backgroundColor?.withAlphaComponent(0.0)
-        }
-    }
-}
-
 extension ViewController : AVCapturePhotoCaptureDelegate {
     
     public func tappedPickButton(sender: UIButton!) {
         print("Tapped")
-        blinkScreen()
+        overlayFlashView.blink()
         cameraView.capturePhoto(delegate: self)
     }
     
