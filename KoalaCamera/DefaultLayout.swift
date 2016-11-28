@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 class DefaultLayout : Layout {
 
@@ -17,7 +17,7 @@ class DefaultLayout : Layout {
         self.view = view
     }
 
-    func render(elements: [UIView]) {
+    func render(_ elements: [UIView]) {
         
         for element in elements {
             if element is CameraView || element is OverlayFlashView {
@@ -27,6 +27,14 @@ class DefaultLayout : Layout {
             else if element is PickButton {
                 view.addSubview(element)
                 pickButtonConstraint(element)
+            }
+        }
+    }
+
+    func viewDidLayoutSubviews(_ elements: [UIView]) {
+        for element in elements {
+            if element is CameraView {
+                updateCameraViewPreviewOrientation(element)
             }
         }
     }
@@ -45,5 +53,16 @@ class DefaultLayout : Layout {
                                      element.widthAnchor.constraint(equalTo: view.widthAnchor),
                                      element.heightAnchor.constraint(equalToConstant: height)])
 
+    }
+
+    func updateCameraViewPreviewOrientation(_ element: UIView) {
+        if let cameraView = element as? CameraView {
+            if let previewLayer = cameraView.previewLayer {
+                previewLayer.frame = cameraView.frame
+                if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
+                    previewLayer.connection.videoOrientation = videoOrientation
+                }
+            }
+        }
     }
 }

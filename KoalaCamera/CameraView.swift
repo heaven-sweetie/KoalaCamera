@@ -39,15 +39,6 @@ class CameraView: UIView {
         }
     }
     
-    func updatePreviewConstraints() {
-        if let previewLayer = previewLayer {
-            previewLayer.frame = frame
-            if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
-                previewLayer.connection.videoOrientation = videoOrientation
-            }
-        }
-    }
-    
     public func capturePhoto(delegate: AVCapturePhotoCaptureDelegate) {
         let settings = AVCapturePhotoSettings()
         let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!

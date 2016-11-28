@@ -50,8 +50,7 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        cameraView.updatePreviewConstraints()
+        layoutManager.viewDidLayoutSubviews()
     }
 }
 

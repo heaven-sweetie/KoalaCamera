@@ -25,7 +25,11 @@ class LayoutManager {
     }
 
     func render() {
-        self.layout.render(elements: self.elements)
+        self.layout.render(self.elements)
+    }
+
+    func viewDidLayoutSubviews() {
+        self.layout.viewDidLayoutSubviews(self.elements)
     }
 
     func updateLayout(layout: Layout, eager: Bool = true) {

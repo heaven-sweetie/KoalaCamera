@@ -8,5 +8,6 @@
 import UIKit
 
 protocol Layout {
-    func render(elements: [UIView])
+    func render(_ elements: [UIView])
+    func viewDidLayoutSubviews(_ elements: [UIView])
 }
