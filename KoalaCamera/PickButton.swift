@@ -9,7 +9,6 @@
 import UIKit
 
 class PickButton : UIButton {
-    let height: CGFloat = 100
     let title = "Pick"
     let bgcolor = UIColor.magenta
 
@@ -27,13 +26,5 @@ class PickButton : UIButton {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = bgcolor.withAlphaComponent(0.5)
         self.setTitle(self.title, for: .normal)
-    }
-    
-    func addAsSubview(view: UIView) {
-        view.addSubview(self)
-        NSLayoutConstraint.activate([self.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     self.widthAnchor.constraint(equalTo: view.widthAnchor),
-                                     self.heightAnchor.constraint(equalToConstant: self.height)])
     }
 }
