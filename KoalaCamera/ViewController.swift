@@ -15,14 +15,8 @@ class ViewController: UIViewController {
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
     
-    var pickButton: UIButton = {
-        var pickButton = UIButton()
-        pickButton.translatesAutoresizingMaskIntoConstraints = false
-        pickButton.setTitle("Pick", for: .normal)
-        pickButton.backgroundColor = UIColor.magenta.withAlphaComponent(0.5)
-        return pickButton
-    }()
-    
+    var pickButton = PickButton()
+
     var cameraView: CameraView = {
         var cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,14 +36,6 @@ class ViewController: UIViewController {
     }
     
     func pickButtonConfigure() {
-        view.addSubview(pickButton)
-        
-        let pickButtonHeight: CGFloat = 100
-        NSLayoutConstraint.activate([pickButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     pickButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     pickButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-                                     pickButton.heightAnchor.constraint(equalToConstant: pickButtonHeight)])
-        
         pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: .touchUpInside)
     }
     
@@ -59,6 +45,7 @@ class ViewController: UIViewController {
         
         cameraViewConfigure()
         overlayFlashView.addAsSubview(view: view)
+        pickButton.addAsSubview(view: view)
         pickButtonConfigure()
     }
     
