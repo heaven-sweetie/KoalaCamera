@@ -14,27 +14,19 @@ class ViewController: UIViewController {
     
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
+
+    var layout : Layout!
+    var layoutManager : LayoutManager!
     
     var pickButton = PickButton()
-
+    var overlayFlashView = OverlayFlashView()
     var cameraView: CameraView = {
         var cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
     }()
-    
-    var overlayFlashView = OverlayFlashView()
-    
+
     //    UI Configuration
-    func cameraViewConfigure() {
-        view.addSubview(cameraView)
-        
-        NSLayoutConstraint.activate([cameraView.topAnchor.constraint(equalTo: view.topAnchor),
-                                     cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-    }
-    
     func pickButtonConfigure() {
         pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: .touchUpInside)
     }
@@ -42,10 +34,13 @@ class ViewController: UIViewController {
     //    Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        cameraViewConfigure()
-        overlayFlashView.addAsSubview(view: view)
-        pickButton.addAsSubview(view: view)
+
+        layout = DefaultLayout(view)
+        layoutManager = LayoutManager(layout: layout)
+
+        layoutManager.add([cameraView, overlayFlashView, pickButton])
+        layoutManager.render()
+
         pickButtonConfigure()
     }
     
