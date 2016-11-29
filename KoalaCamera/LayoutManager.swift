@@ -5,11 +5,12 @@
 //  Created by KimYong Gyun on 28/11/2016.
 //  Copyright © 2016 Koala. All rights reserved.
 //
+
 import UIKit
 
-
 class LayoutManager {
-    var layout : Layout!
+    
+    var layout: Layout!
     var elements = [UIView]()
 
     init(layout: Layout) {
@@ -17,7 +18,7 @@ class LayoutManager {
     }
 
     func add(_ element: UIView) {
-        self.elements.append(element)
+        elements.append(element)
     }
     
     func add(_ elements: [UIView]) {
@@ -25,17 +26,18 @@ class LayoutManager {
     }
 
     func render() {
-        self.layout.render(self.elements)
+        layout.render(self.elements)
     }
 
     func viewDidLayoutSubviews() {
-        self.layout.viewDidLayoutSubviews(self.elements)
+        layout.viewDidLayoutSubviews(elements)
     }
 
     func updateLayout(layout: Layout, eager: Bool = true) {
         self.layout = layout
         if eager && elements.count > 0 {
-            self.render()
+            render()
         }
     }
+    
 }

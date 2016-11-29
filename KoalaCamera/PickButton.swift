@@ -8,14 +8,21 @@
 
 import UIKit
 
-class PickButton : UIButton {
+class PickButton: UIButton {
+    
     let title = "Pick"
     let bgcolor = UIColor.magenta
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
         
+        configure()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        configure()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -23,8 +30,21 @@ class PickButton : UIButton {
     }
 
     func configure() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = bgcolor.withAlphaComponent(0.5)
-        self.setTitle(self.title, for: .normal)
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = bgcolor.withAlphaComponent(0.5)
+        setTitle(title, for: .normal)
     }
+    
+}
+
+extension PickButton: ViewRepresentation {
+    
+    func activateConstraint(in view: UIView) {
+        let height: CGFloat = 100
+        NSLayoutConstraint.activate([bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                                     centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     widthAnchor.constraint(equalTo: view.widthAnchor),
+                                     heightAnchor.constraint(equalToConstant: height)])
+    }
+    
 }

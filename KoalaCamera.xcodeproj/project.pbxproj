@@ -13,6 +13,8 @@
 		2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B34588A1DEC5B2300F8E3F0 /* DefaultLayout.swift */; };
 		2B34588D1DEC5B5100F8E3F0 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B34588C1DEC5B5100F8E3F0 /* Layout.swift */; };
 		57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CDD1DEBDB9C0023CD0E /* CameraView.swift */; };
+		57668CEB1DECF80F0023CD0E /* CapturePhotoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEA1DECF80F0023CD0E /* CapturePhotoDelegate.swift */; };
+		57668CED1DECFDEE0023CD0E /* ViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */; };
 		57E7C12D1DE92023007B4C9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7C12C1DE92023007B4C9D /* AppDelegate.swift */; };
 		57E7C12F1DE92023007B4C9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7C12E1DE92023007B4C9D /* ViewController.swift */; };
 		57E7C1321DE92023007B4C9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1301DE92023007B4C9D /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		2B34588A1DEC5B2300F8E3F0 /* DefaultLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLayout.swift; sourceTree = "<group>"; };
 		2B34588C1DEC5B5100F8E3F0 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		57668CDD1DEBDB9C0023CD0E /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		57668CEA1DECF80F0023CD0E /* CapturePhotoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoDelegate.swift; sourceTree = "<group>"; };
+		57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRepresentation.swift; sourceTree = "<group>"; };
 		57E7C1291DE92023007B4C9D /* KoalaCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoalaCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E7C12C1DE92023007B4C9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57E7C12E1DE92023007B4C9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +104,9 @@
 				2B3458861DEC57EE00F8E3F0 /* PickButton.swift */,
 				2B3458881DEC5B0A00F8E3F0 /* LayoutManager.swift */,
 				2B34588A1DEC5B2300F8E3F0 /* DefaultLayout.swift */,
+				57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */,
 				2B34588C1DEC5B5100F8E3F0 /* Layout.swift */,
+				57668CEA1DECF80F0023CD0E /* CapturePhotoDelegate.swift */,
 			);
 			path = KoalaCamera;
 			sourceTree = "<group>";
@@ -241,9 +247,11 @@
 				57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */,
 				57E7C12F1DE92023007B4C9D /* ViewController.swift in Sources */,
 				57E7C12D1DE92023007B4C9D /* AppDelegate.swift in Sources */,
+				57668CEB1DECF80F0023CD0E /* CapturePhotoDelegate.swift in Sources */,
 				2B34588D1DEC5B5100F8E3F0 /* Layout.swift in Sources */,
 				2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */,
 				2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */,
+				57668CED1DECFDEE0023CD0E /* ViewRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

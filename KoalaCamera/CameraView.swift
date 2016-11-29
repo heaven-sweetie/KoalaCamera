@@ -9,10 +9,12 @@
 import UIKit
 import AVFoundation
 
-class CameraView: UIView {
+class CameraView: UIView, FullScreenRepresentation {
     
     var captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
+    
+    let capturePhotoProcessor = CapturePhotoProcessor()
 
     //    CaptureSession Configuration
     func setupCaptureSession() {
@@ -27,32 +29,34 @@ class CameraView: UIView {
                 print(error)
             }
             
-            previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            if let previewLayer = previewLayer {
+            if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
                 previewLayer.frame = frame
                 previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
                 layer.addSublayer(previewLayer)
                 captureSession.startRunning()
+                
+                self.previewLayer = previewLayer
             }
         } else {
             print("Device hasn't media type")
         }
     }
     
-    public func capturePhoto(delegate: AVCapturePhotoCaptureDelegate) {
+    public func capturePhoto() {
         let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-                             kCVPixelBufferWidthKey as String: 512,
-                             kCVPixelBufferHeightKey as String: 512,
-                             ]
+        
+        var previewFormat = [kCVPixelBufferWidthKey as String: 512,
+                             kCVPixelBufferHeightKey as String: 512]
+        if let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first {
+            previewFormat[kCVPixelBufferPixelFormatTypeKey as String] = previewPixelType.intValue
+        }
         
         settings.isHighResolutionPhotoEnabled = false
         settings.isAutoStillImageStabilizationEnabled = false
         settings.previewPhotoFormat = previewFormat
         
         if let photoOutput = captureSession.outputs.first as? AVCapturePhotoOutput {
-            photoOutput.capturePhoto(with: settings, delegate: delegate)
+            photoOutput.capturePhoto(with: settings, delegate: capturePhotoProcessor)
         }
     }
 
@@ -73,4 +77,5 @@ class CameraView: UIView {
 
         setupCaptureSession()
     }
+    
 }
