@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, CameraAuthorizationTrait {
+class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthorizationTrait {
     
     var layoutManager: LayoutManager!
     
@@ -58,9 +58,13 @@ class ViewController: UIViewController, CameraAuthorizationTrait {
         var layout: Layout!
 
         checkCameraAuthorization { authorized in
-            if authorized {
-                layout = DefaultLayout(self.view)
-            } else {
+            if !authorized {
+                layout = NotAuthorizedLayout(self.view)
+            }
+        }
+
+        checkPhotoAuthorization { authorized in
+            if layout == nil && !authorized {
                 layout = NotAuthorizedLayout(self.view)
             }
         }
@@ -70,10 +74,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait {
         }
 
         layoutManager = LayoutManager(layout: layout)
-        
+
         layoutManager.add([cameraView, overlayFlashView, pickButton, notAuthorizedView])
         layoutManager.render()
-        
+
         pickButtonConfigure()
     }
     
@@ -81,9 +85,13 @@ class ViewController: UIViewController, CameraAuthorizationTrait {
         var layout: Layout!
 
         checkCameraAuthorization { authorized in
-            if authorized {
-                layout = DefaultLayout(self.view)
-            } else {
+            if !authorized {
+                layout = NotAuthorizedLayout(self.view)
+            }
+        }
+
+        checkPhotoAuthorization { authorized in
+            if layout == nil && !authorized {
                 layout = NotAuthorizedLayout(self.view)
             }
         }

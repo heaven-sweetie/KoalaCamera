@@ -15,6 +15,7 @@
 		2B8DA03C1DEEB636001C81EC /* CameraAuthorizationTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03B1DEEB636001C81EC /* CameraAuthorizationTrait.swift */; };
 		2B8DA03E1DEEBF6D001C81EC /* NotAuthorizedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03D1DEEBF6D001C81EC /* NotAuthorizedLayout.swift */; };
 		2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03F1DEEC08C001C81EC /* NotAuthorizedView.swift */; };
+		2BD398D81DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */; };
 		57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CDD1DEBDB9C0023CD0E /* CameraView.swift */; };
 		57668CEB1DECF80F0023CD0E /* CapturePhotoProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */; };
 		57668CED1DECFDEE0023CD0E /* ViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */; };
@@ -45,6 +46,7 @@
 		2B8DA03B1DEEB636001C81EC /* CameraAuthorizationTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAuthorizationTrait.swift; sourceTree = "<group>"; };
 		2B8DA03D1DEEBF6D001C81EC /* NotAuthorizedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAuthorizedLayout.swift; sourceTree = "<group>"; };
 		2B8DA03F1DEEC08C001C81EC /* NotAuthorizedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAuthorizedView.swift; sourceTree = "<group>"; };
+		2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAuthorizationTrait.swift; sourceTree = "<group>"; };
 		57668CDD1DEBDB9C0023CD0E /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoProcessor.swift; sourceTree = "<group>"; };
 		57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRepresentation.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				2B8DA03B1DEEB636001C81EC /* CameraAuthorizationTrait.swift */,
 				2B8DA03D1DEEBF6D001C81EC /* NotAuthorizedLayout.swift */,
 				2B8DA03F1DEEC08C001C81EC /* NotAuthorizedView.swift */,
+				2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */,
 			);
 			path = KoalaCamera;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				2B8DA03E1DEEBF6D001C81EC /* NotAuthorizedLayout.swift in Sources */,
 				57668CEB1DECF80F0023CD0E /* CapturePhotoProcessor.swift in Sources */,
 				2B34588D1DEC5B5100F8E3F0 /* Layout.swift in Sources */,
+				2BD398D81DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift in Sources */,
 				2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */,
 				2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */,
 				2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */,
