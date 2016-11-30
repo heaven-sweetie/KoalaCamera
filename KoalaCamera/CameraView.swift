@@ -53,7 +53,7 @@ class CameraView: UIView, FullScreenRepresentation, CameraAuthorizationTrait {
     }
 
     func initAuthorizedCameraView() {
-        self.setupCaptureSession()
+        setupCaptureSession()
     }
     
     func initAuthorizeFailedCameraView() {
