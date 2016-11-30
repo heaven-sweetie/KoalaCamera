@@ -25,6 +25,10 @@ class LayoutManager {
         self.elements.append(contentsOf: elements)
     }
 
+    func clearAll() {
+        self.elements.removeAll()
+    }
+
     func render() {
         layout.render(self.elements)
     }
