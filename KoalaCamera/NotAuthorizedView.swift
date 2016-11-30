@@ -21,7 +21,7 @@ class NotAuthorizedView: UIView {
     let descriptionLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Allow access to your camera to start taking photos"
+        label.text = "😎\nAllow access to your camera to start taking photos"
         label.textColor = .blue
         label.lineBreakMode = .byWordWrapping
         label.backgroundColor = .white
