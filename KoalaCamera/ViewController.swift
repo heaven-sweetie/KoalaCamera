@@ -64,7 +64,11 @@ class ViewController: UIViewController, CameraAuthorizationTrait {
                 layout = NotAuthorizedLayout(self.view)
             }
         }
-        
+
+        if layout == nil {
+            layout = DefaultLayout(self.view)
+        }
+
         layoutManager = LayoutManager(layout: layout)
         
         layoutManager.add([cameraView, overlayFlashView, pickButton, notAuthorizedView])
@@ -82,6 +86,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait {
             } else {
                 layout = NotAuthorizedLayout(self.view)
             }
+        }
+
+        if layout == nil {
+            layout = DefaultLayout(self.view)
         }
 
         layoutManager.updateLayout(layout: layout)
