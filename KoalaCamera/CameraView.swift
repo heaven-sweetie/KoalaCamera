@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class CameraView: UIView, FullScreenRepresentation {
+class CameraView: UIView, FullScreenRepresentation, CameraAuthorizationTrait {
     
     var captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -41,7 +41,25 @@ class CameraView: UIView, FullScreenRepresentation {
             print("Device hasn't media type")
         }
     }
+
+    func initCameraView() {
+        checkCameraAuthorization { authorized in
+            if authorized {
+                self.initAuthorizedCameraView()
+            } else {
+                self.initAuthorizeFailedCameraView()
+            }
+        }
+    }
+
+    func initAuthorizedCameraView() {
+        self.setupCaptureSession()
+    }
     
+    func initAuthorizeFailedCameraView() {
+        print("Permission to use camera denied!")
+    }
+
     public func capturePhoto() {
         let settings = AVCapturePhotoSettings()
         
@@ -62,20 +80,20 @@ class CameraView: UIView, FullScreenRepresentation {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        setupCaptureSession()
+
+        initCameraView()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupCaptureSession()
+        initCameraView()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        setupCaptureSession()
+        initCameraView()
     }
     
 }
