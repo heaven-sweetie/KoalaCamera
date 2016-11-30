@@ -15,13 +15,17 @@ struct DefaultLayout: Layout {
     
     init(_ view: UIView) {
         self.view = view
+        print("DefaultLayout")
     }
     
     func render(_ elements: [UIView]) {
         for element in elements {
-            view.addSubview(element)
-            if let element = element as? ViewRepresentation {
-                element.activateConstraint(in: view)
+            if element is NotAuthorizedView {
+                // @FIXME
+                // Do nothing
+            } else if let vrElement = element as? ViewRepresentation {
+                view.addSubview(element)
+                vrElement.activateConstraint(in: view)
             }
         }
     }

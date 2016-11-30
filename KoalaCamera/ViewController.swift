@@ -10,13 +10,15 @@ import UIKit
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CameraAuthorizationTrait {
     
     var layoutManager: LayoutManager!
     
     var pickButton = PickButton()
     var overlayFlashView = OverlayFlashView()
     var cameraView = CameraView()
+    
+    var notAuthorizedView = NotAuthorizedView()
 
     //    UI Configuration
     func pickButtonConfigure() {
@@ -27,25 +29,61 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        layoutManager = LayoutManager(layout: DefaultLayout(view))
-
-        layoutManager.add([cameraView, overlayFlashView, pickButton])
-        layoutManager.render()
-
-        pickButtonConfigure()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.applicationDidBecomeActive(notification:)),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               object: nil)
+        setupLayout()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         layoutManager.viewDidLayoutSubviews()
     }
-    
+
     //  Action
     public func tappedPickButton(sender: UIButton!) {
         print("Tapped")
         
         overlayFlashView.blink()
         cameraView.capturePhoto()
+    }
+
+    func applicationDidBecomeActive(notification: NSNotification) {
+        updateLayout()
+    }
+
+    func setupLayout() {
+        var layout: Layout!
+
+        checkCameraAuthorization { authorized in
+            if authorized {
+                layout = DefaultLayout(self.view)
+            } else {
+                layout = NotAuthorizedLayout(self.view)
+            }
+        }
+        
+        layoutManager = LayoutManager(layout: layout)
+        
+        layoutManager.add([cameraView, overlayFlashView, pickButton, notAuthorizedView])
+        layoutManager.render()
+        
+        pickButtonConfigure()
+    }
+    
+    func updateLayout() {
+        var layout: Layout!
+
+        checkCameraAuthorization { authorized in
+            if authorized {
+                layout = DefaultLayout(self.view)
+            } else {
+                layout = NotAuthorizedLayout(self.view)
+            }
+        }
+
+        layoutManager.updateLayout(layout: layout)
     }
 }
