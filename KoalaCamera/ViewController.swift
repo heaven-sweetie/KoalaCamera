@@ -16,11 +16,7 @@ class ViewController: UIViewController {
     
     var pickButton = PickButton()
     var overlayFlashView = OverlayFlashView()
-    var cameraView: CameraView = {
-        var cameraView = CameraView()
-        cameraView.translatesAutoresizingMaskIntoConstraints = false
-        return cameraView
-    }()
+    var cameraView = CameraView()
 
     //    UI Configuration
     func pickButtonConfigure() {
@@ -52,5 +48,4 @@ class ViewController: UIViewController {
         overlayFlashView.blink()
         cameraView.capturePhoto()
     }
-    
 }
