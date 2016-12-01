@@ -24,7 +24,7 @@ class CapturePhotoProcessor: NSObject {
         
         setupCaptureSession()
     }
-
+    
     var previewLayer: AVCaptureVideoPreviewLayer? {
         if let layer = AVCaptureVideoPreviewLayer(session: session) {
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -47,7 +47,6 @@ class CapturePhotoProcessor: NSObject {
                                                     queue: DispatchQueue(label: "sample buffer delegate"))
                 session.addOutput(output)
                 session.addOutput(videoOutput)
-
             } catch let error {
                 print(error)
             }
@@ -66,15 +65,15 @@ class CapturePhotoProcessor: NSObject {
     
     private func setting(_ capturePhotoOutput: AVCapturePhotoOutput) -> AVCapturePhotoSettings {
         let pixelFormatType = NSNumber(value: kCVPixelFormatType_32BGRA)
-
+        
         if !capturePhotoOutput.availablePhotoPixelFormatTypes.contains(pixelFormatType) {
             print("pixelFormatType not available")
         }
-
+        
         let settings = AVCapturePhotoSettings(format: [
             kCVPixelBufferPixelFormatTypeKey as String : pixelFormatType
             ])
-
+        
         var previewFormat = [kCVPixelBufferWidthKey as String: 512,
                              kCVPixelBufferHeightKey as String: 512]
         if let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first {
@@ -97,21 +96,21 @@ class CapturePhotoProcessor: NSObject {
     func saveSampleBufferToPhotoLibrary(_ sampleBuffer: CMSampleBuffer,
                                         previewSampleBuffer: CMSampleBuffer?,
                                         completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
-
+        
         guard let image = convertSampleBufferToUIImageWithFilter(sampleBuffer)
             else {
                 print("Unable to apply the filter")
                 completionHandler?(false, nil)
                 return
         }
-
+        
         guard let jpegData = UIImageJPEGRepresentation(image, 100)
             else {
                 print("Unable to create JPEG data.")
                 completionHandler?(false, nil)
                 return
         }
-
+        
         PHPhotoLibrary.shared().performChanges({
             let creationRequest = PHAssetCreationRequest.forAsset()
             creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
@@ -121,7 +120,7 @@ class CapturePhotoProcessor: NSObject {
             }
         }
     }
-
+    
 }
 
 extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
@@ -175,25 +174,30 @@ extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
 
 extension CapturePhotoProcessor {
     func convertSampleBufferToUIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> UIImage? {
-
+        
         guard let cvPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             print("sampleBuffer does not contain a CVPixelBuffer.")
             return nil
         }
-
+        
         if let filter = CIFilter(name: "CICMYKHalftone") {
             let cameraImage = CIImage(cvPixelBuffer: cvPixelBuffer)
-
+            
             filter.setValue(cameraImage, forKey: kCIInputImageKey)
             filter.setValue(5, forKey: kCIInputWidthKey)
-
+            
             let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
-
+            
             if let outputImage = filter.outputImage,
                 let cgimg = softwareContext.createCGImage(outputImage, from: outputImage.extent) {
-                // FIXME: Orientation is incorrect at the most of cases
-                let filteredImage = UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
-                return filteredImage
+                
+                if let imageOrientation = UIDevice.current.imageOrientation {
+                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: imageOrientation)
+                } else if let lastImageOrientation = superview.image?.imageOrientation {
+                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: lastImageOrientation)
+                } else {
+                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
+                }
             } else {
                 return nil
             }
@@ -201,4 +205,18 @@ extension CapturePhotoProcessor {
             return nil
         }
     }
+}
+
+extension UIDevice {
+    
+    var imageOrientation: UIImageOrientation? {
+        switch self.orientation {
+        case .portrait: return .right
+//        case .portraitUpsideDown: return .right
+        case .landscapeLeft: return .up
+        case .landscapeRight: return .down
+        default: return nil
+        }
+    }
+    
 }
