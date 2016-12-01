@@ -12,6 +12,11 @@ import AVFoundation
 class CameraView: UIView, FullScreenRepresentation {
     
     let captureProcessor = CapturePhotoProcessor()
+    var imageView : UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     func setupPreview() {
@@ -20,10 +25,15 @@ class CameraView: UIView, FullScreenRepresentation {
         }
         
         previewLayer.frame = frame
-        layer.addSublayer(previewLayer)
+        // layer.addSublayer(previewLayer)
+        self.addSubview(imageView)
         
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleToFill
+        setupImageView()
         self.previewLayer = previewLayer
         
+        captureProcessor.superview = imageView
         captureProcessor.startRunning()
     }
     
@@ -37,6 +47,14 @@ class CameraView: UIView, FullScreenRepresentation {
 
     func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    // FIXME:
+    func setupImageView() {
+        NSLayoutConstraint.activate([topAnchor.constraint(equalTo: imageView.topAnchor),
+                                     bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+                                     leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+                                     trailingAnchor.constraint(equalTo: imageView.trailingAnchor)])
     }
 
     required init?(coder aDecoder: NSCoder) {

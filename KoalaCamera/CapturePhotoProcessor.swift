@@ -9,10 +9,12 @@
 import Foundation
 import AVFoundation
 import Photos
+import UIKit
 
 class CapturePhotoProcessor: NSObject {
     
     let session = AVCaptureSession()
+    var superview : UIImageView!
     
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
@@ -22,7 +24,7 @@ class CapturePhotoProcessor: NSObject {
         
         setupCaptureSession()
     }
-    
+
     var previewLayer: AVCaptureVideoPreviewLayer? {
         if let layer = AVCaptureVideoPreviewLayer(session: session) {
             layer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -40,7 +42,12 @@ class CapturePhotoProcessor: NSObject {
                 let input = try AVCaptureDeviceInput(device: device)
                 session.addInput(input)
                 let output = AVCapturePhotoOutput()
+                let videoOutput = AVCaptureVideoDataOutput()
+                videoOutput.setSampleBufferDelegate(self,
+                                                    queue: DispatchQueue(label: "sample buffer delegate"))
                 session.addOutput(output)
+                session.addOutput(videoOutput)
+
             } catch let error {
                 print(error)
             }
@@ -138,5 +145,30 @@ extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
         
         self.photoSampleBuffer = photoSampleBuffer
         self.previewPhotoSampleBuffer = previewPhotoSampleBuffer
+    }
+}
+
+
+extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+
+        if let filter = CIFilter(name: "CICMYKHalftone") {
+            let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+            let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!)
+
+            filter.setValue(cameraImage, forKey: kCIInputImageKey)
+            filter.setValue(5, forKey: kCIInputWidthKey)
+
+            let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
+
+            if let outputImage = filter.outputImage,
+                let cgimg = softwareContext.createCGImage(outputImage, from: outputImage.extent) {
+                // FIXME: Orientation is incorrect at the most of cases
+                let filteredImage = UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
+                DispatchQueue.main.async {
+                    self.superview.image = filteredImage
+                }
+            }
+        }
     }
 }
