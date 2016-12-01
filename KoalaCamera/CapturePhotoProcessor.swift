@@ -64,9 +64,17 @@ class CapturePhotoProcessor: NSObject {
         session.stopRunning()
     }
     
-    private func setting() -> AVCapturePhotoSettings {
-        let settings = AVCapturePhotoSettings()
-        
+    private func setting(_ capturePhotoOutput: AVCapturePhotoOutput) -> AVCapturePhotoSettings {
+        let pixelFormatType = NSNumber(value: kCVPixelFormatType_32BGRA)
+
+        if !capturePhotoOutput.availablePhotoPixelFormatTypes.contains(pixelFormatType) {
+            print("pixelFormatType not available")
+        }
+
+        let settings = AVCapturePhotoSettings(format: [
+            kCVPixelBufferPixelFormatTypeKey as String : pixelFormatType
+            ])
+
         var previewFormat = [kCVPixelBufferWidthKey as String: 512,
                              kCVPixelBufferHeightKey as String: 512]
         if let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first {
@@ -82,22 +90,28 @@ class CapturePhotoProcessor: NSObject {
     
     func capture() {
         if let output = session.outputs.first as? AVCapturePhotoOutput {
-            output.capturePhoto(with: self.setting(), delegate: self)
+            output.capturePhoto(with: self.setting(output), delegate: self)
         }
     }
     
     func saveSampleBufferToPhotoLibrary(_ sampleBuffer: CMSampleBuffer,
                                         previewSampleBuffer: CMSampleBuffer?,
                                         completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
-        guard let jpegData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(
-            forJPEGSampleBuffer: sampleBuffer,
-            previewPhotoSampleBuffer: previewSampleBuffer)
+
+        guard let image = convertSampleBufferToUIImageWithFilter(sampleBuffer)
+            else {
+                print("Unable to apply the filter")
+                completionHandler?(false, nil)
+                return
+        }
+
+        guard let jpegData = UIImageJPEGRepresentation(image, 100)
             else {
                 print("Unable to create JPEG data.")
                 completionHandler?(false, nil)
                 return
         }
-        
+
         PHPhotoLibrary.shared().performChanges({
             let creationRequest = PHAssetCreationRequest.forAsset()
             creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
@@ -151,10 +165,24 @@ extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
 
 extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        if let image = convertSampleBufferToUIImageWithFilter(sampleBuffer) {
+            DispatchQueue.main.async {
+                self.superview.image = image
+            }
+        }
+    }
+}
+
+extension CapturePhotoProcessor {
+    func convertSampleBufferToUIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> UIImage? {
+
+        guard let cvPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            print("sampleBuffer does not contain a CVPixelBuffer.")
+            return nil
+        }
 
         if let filter = CIFilter(name: "CICMYKHalftone") {
-            let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-            let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!)
+            let cameraImage = CIImage(cvPixelBuffer: cvPixelBuffer)
 
             filter.setValue(cameraImage, forKey: kCIInputImageKey)
             filter.setValue(5, forKey: kCIInputWidthKey)
@@ -165,10 +193,12 @@ extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
                 let cgimg = softwareContext.createCGImage(outputImage, from: outputImage.extent) {
                 // FIXME: Orientation is incorrect at the most of cases
                 let filteredImage = UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
-                DispatchQueue.main.async {
-                    self.superview.image = filteredImage
-                }
+                return filteredImage
+            } else {
+                return nil
             }
+        } else {
+            return nil
         }
     }
 }
