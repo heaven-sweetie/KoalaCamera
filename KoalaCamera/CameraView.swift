@@ -11,35 +11,20 @@ import AVFoundation
 
 class CameraView: UIView, FullScreenRepresentation {
     
-    var captureSession = AVCaptureSession()
+    let captureProcessor = CapturePhotoProcessor()
     var previewLayer: AVCaptureVideoPreviewLayer?
     
-    let capturePhotoProcessor = CapturePhotoProcessor()
-
-    //    CaptureSession Configuration
-    func setupCaptureSession() {
-        if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo), device.hasMediaType(AVMediaTypeVideo) {
-            captureSession.sessionPreset = AVCaptureSessionPresetHigh
-            do {
-                let input = try AVCaptureDeviceInput(device: device)
-                captureSession.addInput(input)
-                let output = AVCapturePhotoOutput()
-                captureSession.addOutput(output)
-            } catch let error {
-                print(error)
-            }
-            
-            if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
-                previewLayer.frame = frame
-                previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                layer.addSublayer(previewLayer)
-                captureSession.startRunning()
-                
-                self.previewLayer = previewLayer
-            }
-        } else {
-            print("Device hasn't media type")
+    func setupPreview() {
+        guard let previewLayer = captureProcessor.previewLayer else {
+            fatalError()
         }
+        
+        previewLayer.frame = frame
+        layer.addSublayer(previewLayer)
+        
+        self.previewLayer = previewLayer
+        
+        captureProcessor.startRunning()
     }
     
     func initAuthorizeFailedCameraView() {
@@ -47,21 +32,7 @@ class CameraView: UIView, FullScreenRepresentation {
     }
 
     public func capturePhoto() {
-        let settings = AVCapturePhotoSettings()
-        
-        var previewFormat = [kCVPixelBufferWidthKey as String: 512,
-                             kCVPixelBufferHeightKey as String: 512]
-        if let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first {
-            previewFormat[kCVPixelBufferPixelFormatTypeKey as String] = previewPixelType.intValue
-        }
-        
-        settings.isHighResolutionPhotoEnabled = false
-        settings.isAutoStillImageStabilizationEnabled = false
-        settings.previewPhotoFormat = previewFormat
-        
-        if let photoOutput = captureSession.outputs.first as? AVCapturePhotoOutput {
-            photoOutput.capturePhoto(with: settings, delegate: capturePhotoProcessor)
-        }
+        captureProcessor.capture()
     }
 
     func configure() {
@@ -72,21 +43,21 @@ class CameraView: UIView, FullScreenRepresentation {
         super.init(coder: aDecoder)
 
         configure()
-        setupCaptureSession()
+        setupPreview()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         configure()
-        setupCaptureSession()
+        setupPreview()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
 
         configure()
-        setupCaptureSession()
+        setupPreview()
     }
     
 }

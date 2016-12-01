@@ -10,43 +10,72 @@ import Foundation
 import AVFoundation
 import Photos
 
-class CapturePhotoProcessor: NSObject, AVCapturePhotoCaptureDelegate {
+class CapturePhotoProcessor: NSObject {
+    
+    let session = AVCaptureSession()
     
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
     
-    // swiftlint:disable function_parameter_count
-    func capture(_ captureOutput: AVCapturePhotoOutput,
-                 didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?,
-                 previewPhotoSampleBuffer: CMSampleBuffer?,
-                 resolvedSettings: AVCaptureResolvedPhotoSettings,
-                 bracketSettings: AVCaptureBracketedStillImageSettings?,
-                 error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        }
+    override init() {
+        super.init()
         
-        self.photoSampleBuffer = photoSampleBuffer
-        self.previewPhotoSampleBuffer = previewPhotoSampleBuffer
+        setupCaptureSession()
     }
     
-    func capture(_ captureOutput: AVCapturePhotoOutput,
-                 didFinishCaptureForResolvedSettings resolvedSettings: AVCaptureResolvedPhotoSettings,
-                 error: Error?) {
-        guard error == nil else {
-            print("Error in capture process: \(error)")
-            return
+    var previewLayer: AVCaptureVideoPreviewLayer? {
+        if let layer = AVCaptureVideoPreviewLayer(session: session) {
+            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            return layer
+        } else {
+            return nil
+        }
+    }
+    
+    //    CaptureSession Configuration
+    func setupCaptureSession() {
+        if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo), device.hasMediaType(AVMediaTypeVideo) {
+            session.sessionPreset = AVCaptureSessionPresetHigh
+            do {
+                let input = try AVCaptureDeviceInput(device: device)
+                session.addInput(input)
+                let output = AVCapturePhotoOutput()
+                session.addOutput(output)
+            } catch let error {
+                print(error)
+            }
+        } else {
+            print("Device hasn't media type")
+        }
+    }
+    
+    func startRunning() {
+        session.startRunning()
+    }
+    
+    func stopRunning() {
+        session.stopRunning()
+    }
+    
+    private func setting() -> AVCapturePhotoSettings {
+        let settings = AVCapturePhotoSettings()
+        
+        var previewFormat = [kCVPixelBufferWidthKey as String: 512,
+                             kCVPixelBufferHeightKey as String: 512]
+        if let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first {
+            previewFormat[kCVPixelBufferPixelFormatTypeKey as String] = previewPixelType.intValue
         }
         
-        if let photoSampleBuffer = self.photoSampleBuffer {
-            saveSampleBufferToPhotoLibrary(photoSampleBuffer, previewSampleBuffer: self.previewPhotoSampleBuffer) {
-                success, error in
-                if success {
-                    print("Added JPEG photo to library.")
-                } else {
-                    print("Error adding JPEG photo to library: \(error)")
-                }
-            }
+        settings.isHighResolutionPhotoEnabled = false
+        settings.isAutoStillImageStabilizationEnabled = false
+        settings.previewPhotoFormat = previewFormat
+        
+        return settings
+    }
+    
+    func capture() {
+        if let output = session.outputs.first as? AVCapturePhotoOutput {
+            output.capturePhoto(with: self.setting(), delegate: self)
         }
     }
     
@@ -72,4 +101,42 @@ class CapturePhotoProcessor: NSObject, AVCapturePhotoCaptureDelegate {
         }
     }
 
+}
+
+extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
+    
+    func capture(_ captureOutput: AVCapturePhotoOutput,
+                 didFinishCaptureForResolvedSettings resolvedSettings: AVCaptureResolvedPhotoSettings,
+                 error: Error?) {
+        guard error == nil else {
+            print("Error in capture process: \(error)")
+            return
+        }
+        
+        if let photoSampleBuffer = self.photoSampleBuffer {
+            saveSampleBufferToPhotoLibrary(photoSampleBuffer, previewSampleBuffer: self.previewPhotoSampleBuffer) {
+                success, error in
+                if success {
+                    print("Added JPEG photo to library.")
+                } else {
+                    print("Error adding JPEG photo to library: \(error)")
+                }
+            }
+        }
+    }
+    
+    // swiftlint:disable function_parameter_count
+    func capture(_ captureOutput: AVCapturePhotoOutput,
+                 didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?,
+                 previewPhotoSampleBuffer: CMSampleBuffer?,
+                 resolvedSettings: AVCaptureResolvedPhotoSettings,
+                 bracketSettings: AVCaptureBracketedStillImageSettings?,
+                 error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+        }
+        
+        self.photoSampleBuffer = photoSampleBuffer
+        self.previewPhotoSampleBuffer = previewPhotoSampleBuffer
+    }
 }
