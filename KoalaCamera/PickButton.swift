@@ -40,11 +40,11 @@ class PickButton: UIButton {
 extension PickButton: ViewRepresentation {
     
     func activateConstraint(in view: UIView) {
-        let height: CGFloat = 100
+        let size: CGFloat = 100
         NSLayoutConstraint.activate([bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     widthAnchor.constraint(equalTo: view.widthAnchor),
-                                     heightAnchor.constraint(equalToConstant: height)])
+                                     leftAnchor.constraint(equalTo: view.leftAnchor),
+                                     widthAnchor.constraint(equalTo: view.widthAnchor, constant: -1 * size),
+                                     heightAnchor.constraint(equalToConstant: size)])
     }
     
 }
