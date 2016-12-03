@@ -42,7 +42,7 @@ class CapturePhotoProcessor: NSObject {
     func setupCaptureSession() {
         device = AVCaptureDevice.defaultDevice(withMediaType: mediaType)
         if let device = device, device.hasMediaType(mediaType) {
-            session.sessionPreset = AVCaptureSessionPresetHigh
+            session.sessionPreset = AVCaptureSessionPresetPhoto
             do {
                 let input = try AVCaptureDeviceInput(device: device)
                 session.addInput(input)

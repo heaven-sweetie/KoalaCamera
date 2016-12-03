@@ -93,18 +93,23 @@ class CIFilterBase {
     }
     
     func calcDeviceExposure () -> CGFloat {
-        let mExposure : CGFloat = 19992000 - 24000
+        let mExposure : CGFloat = 59977000 - 24000
         let exposure = (CGFloat) (device.exposureDuration.value - 24000)
         return exposure / mExposure
     }
     
     func calcDeviceIso () -> CGFloat {
-        let mIso : CGFloat = 544 - 34
+        let mIso : CGFloat = 2177 - 34
         let iso = (CGFloat) (device.iso - 34)
         return iso / mIso
     }
     
     func calcDeviceBrightness() -> CGFloat {
         return calcDeviceExposure() * calcDeviceIso()
+    }
+
+    func calcDeviceWhiteBalanceGain() -> CGFloat {
+        let t = device.temperatureAndTintValues(forDeviceWhiteBalanceGains: device.deviceWhiteBalanceGains)
+        return CGFloat(t.temperature)
     }
 }
