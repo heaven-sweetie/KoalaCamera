@@ -52,7 +52,7 @@ class CameraView: UIView, FullScreenRepresentation {
     // FIXME:
     func setupImageView() {
         NSLayoutConstraint.activate([topAnchor.constraint(equalTo: imageView.topAnchor),
-                                     bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+                                     widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.75),
                                      leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
                                      trailingAnchor.constraint(equalTo: imageView.trailingAnchor)])
     }
