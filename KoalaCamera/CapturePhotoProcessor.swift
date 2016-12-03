@@ -16,8 +16,12 @@ class CapturePhotoProcessor: NSObject {
     let session = AVCaptureSession()
     var superview : UIImageView!
     
+    var device : AVCaptureDevice?
+    
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
+    
+    let mediaType = AVMediaTypeVideo
     
     override init() {
         super.init()
@@ -36,7 +40,8 @@ class CapturePhotoProcessor: NSObject {
     
     //    CaptureSession Configuration
     func setupCaptureSession() {
-        if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo), device.hasMediaType(AVMediaTypeVideo) {
+        device = AVCaptureDevice.defaultDevice(withMediaType: mediaType)
+        if let device = device, device.hasMediaType(mediaType) {
             session.sessionPreset = AVCaptureSessionPresetHigh
             do {
                 let input = try AVCaptureDeviceInput(device: device)
@@ -174,17 +179,16 @@ extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
 
 extension CapturePhotoProcessor {
     func convertSampleBufferToUIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> UIImage? {
-        
         guard let cvPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             print("sampleBuffer does not contain a CVPixelBuffer.")
             return nil
         }
         
-        if let filter = CIFilter(name: "CICMYKHalftone") {
+        if let device = device {
+            let filter = CIKoalaFilter(device)
             let cameraImage = CIImage(cvPixelBuffer: cvPixelBuffer)
             
-            filter.setValue(cameraImage, forKey: kCIInputImageKey)
-            filter.setValue(5, forKey: kCIInputWidthKey)
+            filter.setImage(cameraImage)
             
             let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
             
@@ -219,4 +223,19 @@ extension UIDevice {
         }
     }
     
+}
+
+typealias Rational = (num : Int, den : Int)
+
+func rationalApproximation(of x0 : Double, withPrecision eps : Double = 1.0E-6) -> Rational {
+    var x = x0
+    var a = x.rounded(.down)
+    var (h1, k1, h, k) = (1, 0, Int(a), 1)
+    
+    while x - a > eps * Double(k) * Double(k) {
+        x = 1.0/(x - a)
+        a = x.rounded(.down)
+        (h1, k1, h, k) = (h, k, h1 + Int(a) * h, k1 + Int(a) * k)
+    }
+    return (h, k)
 }
