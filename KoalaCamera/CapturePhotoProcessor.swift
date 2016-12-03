@@ -22,6 +22,7 @@ class CapturePhotoProcessor: NSObject {
     var previewPhotoSampleBuffer: CMSampleBuffer?
     
     let mediaType = AVMediaTypeVideo
+    let saveFileQueue = DispatchQueue(label: "save file")
     
     override init() {
         super.init()
@@ -101,27 +102,29 @@ class CapturePhotoProcessor: NSObject {
     func saveSampleBufferToPhotoLibrary(_ sampleBuffer: CMSampleBuffer,
                                         previewSampleBuffer: CMSampleBuffer?,
                                         completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?) {
-        
-        guard let image = convertSampleBufferToUIImageWithFilter(sampleBuffer)
-            else {
-                print("Unable to apply the filter")
-                completionHandler?(false, nil)
-                return
-        }
-        
-        guard let jpegData = UIImageJPEGRepresentation(image, 100)
-            else {
-                print("Unable to create JPEG data.")
-                completionHandler?(false, nil)
-                return
-        }
-        
-        PHPhotoLibrary.shared().performChanges({
-            let creationRequest = PHAssetCreationRequest.forAsset()
-            creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
-        }) { success, error in
-            DispatchQueue.main.async {
-                completionHandler?(success, error)
+
+        saveFileQueue.async {
+            guard let image = self.convertSampleBufferToUIImageWithFilter(sampleBuffer)
+                else {
+                    print("Unable to apply the filter")
+                    completionHandler?(false, nil)
+                    return
+            }
+
+            guard let jpegData = UIImageJPEGRepresentation(image, 100)
+                else {
+                    print("Unable to create JPEG data.")
+                    completionHandler?(false, nil)
+                    return
+            }
+
+            PHPhotoLibrary.shared().performChanges({
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                creationRequest.addResource(with: PHAssetResourceType.photo, data: jpegData, options: nil)
+            }) { success, error in
+                DispatchQueue.main.async {
+                    completionHandler?(success, error)
+                }
             }
         }
     }
