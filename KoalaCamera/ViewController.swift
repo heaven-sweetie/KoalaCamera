@@ -45,6 +45,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
         layoutManager.viewDidLayoutSubviews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        cameraView.setupPreview(frame: self.view.frame)
+    }
 
     //  Action
     public func tappedPickButton(sender: UIButton!) {
@@ -105,5 +109,46 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         }
 
         layoutManager.updateLayout(layout: layout)
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if let videoPreviewLayerConnection = cameraView.previewLayer.connection {
+            let deviceOrientation = UIDevice.current.orientation
+            guard let newVideoOrientation = deviceOrientation.videoOrientation, deviceOrientation.isPortrait || deviceOrientation.isLandscape else {
+                return
+            }
+            
+            videoPreviewLayerConnection.videoOrientation = newVideoOrientation
+        }
+    }
+}
+
+extension UIDeviceOrientation {
+    var videoOrientation: AVCaptureVideoOrientation? {
+        switch self {
+        case .portrait: return .portrait
+        case .portraitUpsideDown: return .portraitUpsideDown
+        case .landscapeLeft: return .landscapeRight
+        case .landscapeRight: return .landscapeLeft
+        default: return nil
+        }
+    }
+}
+
+extension UIInterfaceOrientation {
+    var videoOrientation: AVCaptureVideoOrientation? {
+        switch self {
+        case .portrait: return .portrait
+        case .portraitUpsideDown: return .portraitUpsideDown
+        case .landscapeLeft: return .landscapeLeft
+        case .landscapeRight: return .landscapeRight
+        default: return nil
+        }
     }
 }

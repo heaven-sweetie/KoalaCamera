@@ -34,12 +34,12 @@ struct DefaultLayout: Layout {
             updateCameraViewPreviewOrientation(element)
         }
     }
-    
+
     func updateCameraViewPreviewOrientation(_ element: UIView) {
-        if let cameraView = element as? CameraView, let previewLayer = cameraView.previewLayer {
-            previewLayer.frame = cameraView.frame
+        if let cameraView = element as? CameraView {
+            cameraView.previewLayer.frame = cameraView.frame
             if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
-                previewLayer.connection.videoOrientation = videoOrientation
+                cameraView.previewLayer.connection.videoOrientation = videoOrientation
             }
         }
     }

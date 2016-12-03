@@ -10,11 +10,12 @@ import Foundation
 import AVFoundation
 import Photos
 import UIKit
+import GLKit
 
 class CapturePhotoProcessor: NSObject {
     
     let session = AVCaptureSession()
-    var superview : UIImageView!
+    var superview : GLRenderer!
     
     var device : AVCaptureDevice?
     
@@ -28,15 +29,6 @@ class CapturePhotoProcessor: NSObject {
         super.init()
         
         setupCaptureSession()
-    }
-    
-    var previewLayer: AVCaptureVideoPreviewLayer? {
-        if let layer = AVCaptureVideoPreviewLayer(session: session) {
-            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            return layer
-        } else {
-            return nil
-        }
     }
     
     //    CaptureSession Configuration
@@ -172,16 +164,16 @@ extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
 
 extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        if let image = convertSampleBufferToUIImageWithFilter(sampleBuffer) {
+        if let image = convertSampleBufferToCIImageWithFilter(sampleBuffer) {
             DispatchQueue.main.async {
-                self.superview.image = image
+                self.superview?.renderImage(image: image)
             }
         }
     }
 }
 
 extension CapturePhotoProcessor {
-    func convertSampleBufferToUIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> UIImage? {
+    func convertSampleBufferToCIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> CIImage? {
         guard let cvPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             print("sampleBuffer does not contain a CVPixelBuffer.")
             return nil
@@ -192,25 +184,29 @@ extension CapturePhotoProcessor {
             let cameraImage = CIImage(cvPixelBuffer: cvPixelBuffer)
             
             filter.setImage(cameraImage)
-            
-            let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
-            
-            if let outputImage = filter.outputImage,
-                let cgimg = softwareContext.createCGImage(outputImage, from: outputImage.extent) {
-                
-                if let imageOrientation = UIDevice.current.imageOrientation {
-                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: imageOrientation)
-                } else if let lastImageOrientation = superview.image?.imageOrientation {
-                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: lastImageOrientation)
-                } else {
-                    return UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
-                }
+            if let outputImage = filter.outputImage {
+                return outputImage
             } else {
                 return nil
             }
         } else {
             return nil
         }
+    }
+    
+    func convertSampleBufferToUIImageWithFilter(_ sampleBuffer: CMSampleBuffer) -> UIImage? {
+        let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
+        if let outputImage = convertSampleBufferToCIImageWithFilter(sampleBuffer),
+           let cgimg = softwareContext.createCGImage(outputImage, from: outputImage.extent) {
+            if let imageOrientation = UIDevice.current.imageOrientation {
+                return UIImage(cgImage: cgimg, scale: 1.0, orientation: imageOrientation)
+//            } else if let lastImageOrientation = superview.image?.imageOrientation {
+//                return UIImage(cgImage: cgimg, scale: 1.0, orientation: lastImageOrientation)
+            } else {
+                return UIImage(cgImage: cgimg, scale: 1.0, orientation: .right)
+            }
+        }
+        return nil
     }
 }
 

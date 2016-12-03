@@ -27,6 +27,9 @@
 		57E7C1341DE92023007B4C9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1331DE92023007B4C9D /* Assets.xcassets */; };
 		57E7C1371DE92023007B4C9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1351DE92023007B4C9D /* LaunchScreen.storyboard */; };
 		57E7C1421DE92023007B4C9D /* KoalaCameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */; };
+		D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80189141DF19D0100D3D7BA /* GLRenderer.swift */; };
+		D80189181DF1A4A700D3D7BA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189171DF1A4A700D3D7BA /* GLKit.framework */; };
+		D801891A1DF1A4B500D3D7BA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189191DF1A4B500D3D7BA /* OpenGLES.framework */; };
 		D839EB5A1DEF19E100056F4E /* SessionPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB591DEF19E100056F4E /* SessionPreset.swift */; };
 		D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */; };
 		D839EB5E1DEF8CEB00056F4E /* CaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */; };
@@ -67,6 +70,9 @@
 		57E7C13D1DE92023007B4C9D /* KoalaCameraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KoalaCameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoalaCameraTests.swift; sourceTree = "<group>"; };
 		57E7C1431DE92023007B4C9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D80189141DF19D0100D3D7BA /* GLRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderer.swift; sourceTree = "<group>"; };
+		D80189171DF1A4A700D3D7BA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D80189191DF1A4B500D3D7BA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D839EB591DEF19E100056F4E /* SessionPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPreset.swift; sourceTree = "<group>"; };
 		D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraFocus.swift; sourceTree = "<group>"; };
 		D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureDevice.swift; sourceTree = "<group>"; };
@@ -77,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D801891A1DF1A4B500D3D7BA /* OpenGLES.framework in Frameworks */,
+				D80189181DF1A4A700D3D7BA /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +113,7 @@
 				57E7C12B1DE92023007B4C9D /* KoalaCamera */,
 				57E7C1401DE92023007B4C9D /* KoalaCameraTests */,
 				57E7C12A1DE92023007B4C9D /* Products */,
+				D80189161DF1A4A700D3D7BA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +151,7 @@
 				D839EB591DEF19E100056F4E /* SessionPreset.swift */,
 				D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */,
 				D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */,
+				D80189141DF19D0100D3D7BA /* GLRenderer.swift */,
 			);
 			path = KoalaCamera;
 			sourceTree = "<group>";
@@ -153,6 +163,15 @@
 				57E7C1431DE92023007B4C9D /* Info.plist */,
 			);
 			path = KoalaCameraTests;
+			sourceTree = "<group>";
+		};
+		D80189161DF1A4A700D3D7BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D80189191DF1A4B500D3D7BA /* OpenGLES.framework */,
+				D80189171DF1A4A700D3D7BA /* GLKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +313,7 @@
 				D839EB5E1DEF8CEB00056F4E /* CaptureDevice.swift in Sources */,
 				2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */,
 				2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */,
+				D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */,
 				2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */,
 				57668CED1DECFDEE0023CD0E /* ViewRepresentation.swift in Sources */,
 			);
