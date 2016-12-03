@@ -31,14 +31,13 @@ class GLRenderer {
     }
     
     func layoutGLView(superview: UIView) {
-        NSLayoutConstraint.activate([glView.topAnchor.constraint(equalTo: superview.topAnchor),
-                                     glView.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                                     glView.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                                     glView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
     }
 
     
     func renderImage(image: CIImage) {
+        if let superview = glView.superview {
+            glView.frame = superview.frame
+        }
         glView.bindDrawable()
         if glView.context != EAGLContext.current() {
             EAGLContext.setCurrent(glView.context)
@@ -51,10 +50,8 @@ class GLRenderer {
         let imageAR = imageSize.width / imageSize.height
         let viewAR = drawFrame.width / drawFrame.height
         if imageAR > viewAR {
-            drawFrame.origin.y += (drawFrame.height - drawFrame.width / imageAR) / 2.0
             drawFrame.size.height = drawFrame.width / imageAR
         } else {
-            drawFrame.origin.x += (drawFrame.width - drawFrame.height * imageAR) / 2.0
             drawFrame.size.width = drawFrame.height * imageAR
         }
         
