@@ -25,6 +25,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     var filterList = [
         ("😬", NoFilter()),
         ("🐨", KoalaFilter()),
+        ("🤔", Proto1Filter()),
     ]
         as [(String, Filterable)]
 
