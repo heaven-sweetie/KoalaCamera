@@ -10,8 +10,8 @@ import UIKit
 
 class PickButton: UIButton {
     
-    let title = "Pick"
-    let bgcolor = UIColor.magenta
+    let title = "📸"
+    let bgcolor = UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,7 @@ class PickButton: UIButton {
 
     func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = bgcolor.withAlphaComponent(0.5)
+        backgroundColor = bgcolor
         setTitle(title, for: .normal)
     }
     
