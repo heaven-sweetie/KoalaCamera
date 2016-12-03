@@ -20,6 +20,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     
     var notAuthorizedView = NotAuthorizedView()
 
+    override var prefersStatusBarHidden: Bool {
+        get { return true; }
+    }
+
     //    UI Configuration
     func pickButtonConfigure() {
         pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: .touchUpInside)

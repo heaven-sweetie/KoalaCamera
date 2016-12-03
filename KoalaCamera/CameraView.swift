@@ -47,6 +47,7 @@ class CameraView: UIView, FullScreenRepresentation {
 
     func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = UIColor.black
     }
 
     // FIXME:
