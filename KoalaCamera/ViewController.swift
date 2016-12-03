@@ -21,6 +21,13 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     
     var notAuthorizedView = NotAuthorizedView()
 
+    var filterIndex : Int = 0
+    var filterList = [
+        ("😬", NoFilter()),
+        ("🐨", KoalaFilter()),
+    ]
+        as [(String, Filterable)]
+
     override var prefersStatusBarHidden: Bool {
         get { return true; }
     }
@@ -43,6 +50,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
                                                name: NSNotification.Name.UIApplicationDidBecomeActive,
                                                object: nil)
         setupLayout()
+        setupFilter()
     }
 
     override func viewDidLayoutSubviews() {
@@ -65,11 +73,8 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
     public func tappedFilterButton(sender: UIButton!) {
         print("Filter Tapped")
-        if cameraView.captureProcessor.filter is NoFilter {
-            cameraView.captureProcessor.filter = KoalaFilter()
-        } else {
-            cameraView.captureProcessor.filter = NoFilter()
-        }
+        nextFilterIndex()
+        setCurrentFilter()
     }
 
     func applicationDidBecomeActive(notification: NSNotification) {
@@ -124,6 +129,23 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         }
 
         layoutManager.updateLayout(layout: layout)
+    }
+
+    func setupFilter() {
+        setCurrentFilter()
+    }
+
+    func nextFilterIndex() {
+        filterIndex += 1
+        if filterIndex == filterList.count {
+            filterIndex = 0
+        }
+    }
+
+    func setCurrentFilter() {
+        let filter = filterList[filterIndex]
+        filterButton.setTitle(filter.0, for: .normal)
+        cameraView.captureProcessor.filter = filter.1
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
