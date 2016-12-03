@@ -1,5 +1,5 @@
 //
-//  CIKoalaFilter.swift
+//  FilterBase.swift
 //  KoalaCamera
 //
 //  Created by KimYong Gyun on 3/12/2016.
@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class FilterBase : Filterable {
+class FilterBase : Filterable, FilterDeviceNeeded {
     let colorClamp : CIFilter! = CIFilter(name: "CIColorClamp")
     let colorControls : CIFilter! = CIFilter(name: "CIColorControls")
     let colorMatrix : CIFilter! = CIFilter(name: "CIColorMatrix")

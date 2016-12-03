@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B128A731DF2A1BF00EBF9EE /* FilterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B128A721DF2A1BF00EBF9EE /* FilterBase.swift */; };
 		2B3458851DEC52C700F8E3F0 /* OverlayFlashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3458841DEC52C700F8E3F0 /* OverlayFlashView.swift */; };
 		2B3458871DEC57EE00F8E3F0 /* PickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3458861DEC57EE00F8E3F0 /* PickButton.swift */; };
 		2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3458881DEC5B0A00F8E3F0 /* LayoutManager.swift */; };
 		2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B34588A1DEC5B2300F8E3F0 /* DefaultLayout.swift */; };
 		2B34588D1DEC5B5100F8E3F0 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B34588C1DEC5B5100F8E3F0 /* Layout.swift */; };
+		2B79EABD1DF30924008B2225 /* FilterDeviceNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B79EABC1DF30924008B2225 /* FilterDeviceNeeded.swift */; };
+		2B79EABF1DF30956008B2225 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B79EABE1DF30956008B2225 /* Filterable.swift */; };
 		2B8DA03C1DEEB636001C81EC /* CameraAuthorizationTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03B1DEEB636001C81EC /* CameraAuthorizationTrait.swift */; };
 		2B8DA03E1DEEBF6D001C81EC /* NotAuthorizedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03D1DEEBF6D001C81EC /* NotAuthorizedLayout.swift */; };
 		2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DA03F1DEEC08C001C81EC /* NotAuthorizedView.swift */; };
-		2B9F02D21DF2CB18009C0BB0 /* KoalaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02D11DF2CB18009C0BB0 /* KoalaFilter.swift */; };
-		2B9F02D41DF30330009C0BB0 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02D31DF30330009C0BB0 /* Filterable.swift */; };
+		2B9F02DF1DF30873009C0BB0 /* FilterBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02DA1DF30873009C0BB0 /* FilterBase.swift */; };
+		2B9F02E11DF30873009C0BB0 /* KoalaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */; };
+		2B9F02E21DF30873009C0BB0 /* NoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */; };
 		2BD398D81DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */; };
 		57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CDD1DEBDB9C0023CD0E /* CameraView.swift */; };
 		57668CEB1DECF80F0023CD0E /* CapturePhotoProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */; };
@@ -47,17 +49,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B128A721DF2A1BF00EBF9EE /* FilterBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterBase.swift; path = filters/FilterBase.swift; sourceTree = "<group>"; };
 		2B3458841DEC52C700F8E3F0 /* OverlayFlashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayFlashView.swift; sourceTree = "<group>"; };
 		2B3458861DEC57EE00F8E3F0 /* PickButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickButton.swift; sourceTree = "<group>"; };
 		2B3458881DEC5B0A00F8E3F0 /* LayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		2B34588A1DEC5B2300F8E3F0 /* DefaultLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLayout.swift; sourceTree = "<group>"; };
 		2B34588C1DEC5B5100F8E3F0 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		2B79EABC1DF30924008B2225 /* FilterDeviceNeeded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDeviceNeeded.swift; sourceTree = "<group>"; };
+		2B79EABE1DF30956008B2225 /* Filterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filterable.swift; path = filters/Filterable.swift; sourceTree = "<group>"; };
 		2B8DA03B1DEEB636001C81EC /* CameraAuthorizationTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAuthorizationTrait.swift; sourceTree = "<group>"; };
 		2B8DA03D1DEEBF6D001C81EC /* NotAuthorizedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAuthorizedLayout.swift; sourceTree = "<group>"; };
 		2B8DA03F1DEEC08C001C81EC /* NotAuthorizedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAuthorizedView.swift; sourceTree = "<group>"; };
-		2B9F02D11DF2CB18009C0BB0 /* KoalaFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KoalaFilter.swift; sourceTree = "<group>"; };
-		2B9F02D31DF30330009C0BB0 /* Filterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
+		2B9F02DA1DF30873009C0BB0 /* FilterBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterBase.swift; path = filters/FilterBase.swift; sourceTree = "<group>"; };
+		2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KoalaFilter.swift; path = filters/KoalaFilter.swift; sourceTree = "<group>"; };
+		2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoFilter.swift; path = filters/NoFilter.swift; sourceTree = "<group>"; };
 		2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAuthorizationTrait.swift; sourceTree = "<group>"; };
 		57668CDD1DEBDB9C0023CD0E /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoProcessor.swift; sourceTree = "<group>"; };
@@ -103,9 +107,11 @@
 		2B128A711DF2A1AB00EBF9EE /* filters */ = {
 			isa = PBXGroup;
 			children = (
-				2B128A721DF2A1BF00EBF9EE /* FilterBase.swift */,
-				2B9F02D11DF2CB18009C0BB0 /* KoalaFilter.swift */,
-				2B9F02D31DF30330009C0BB0 /* Filterable.swift */,
+				2B79EABE1DF30956008B2225 /* Filterable.swift */,
+				2B9F02DA1DF30873009C0BB0 /* FilterBase.swift */,
+				2B79EABC1DF30924008B2225 /* FilterDeviceNeeded.swift */,
+				2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */,
+				2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */,
 			);
 			name = filters;
 			sourceTree = "<group>";
@@ -301,22 +307,24 @@
 			files = (
 				2B3458851DEC52C700F8E3F0 /* OverlayFlashView.swift in Sources */,
 				2B3458871DEC57EE00F8E3F0 /* PickButton.swift in Sources */,
+				2B9F02DF1DF30873009C0BB0 /* FilterBase.swift in Sources */,
 				57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */,
 				2B8DA03C1DEEB636001C81EC /* CameraAuthorizationTrait.swift in Sources */,
 				57E7C12F1DE92023007B4C9D /* ViewController.swift in Sources */,
 				D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */,
-				2B128A731DF2A1BF00EBF9EE /* FilterBase.swift in Sources */,
 				57E7C12D1DE92023007B4C9D /* AppDelegate.swift in Sources */,
+				2B9F02E21DF30873009C0BB0 /* NoFilter.swift in Sources */,
 				2B8DA03E1DEEBF6D001C81EC /* NotAuthorizedLayout.swift in Sources */,
+				2B79EABF1DF30956008B2225 /* Filterable.swift in Sources */,
 				57668CEB1DECF80F0023CD0E /* CapturePhotoProcessor.swift in Sources */,
 				2B34588D1DEC5B5100F8E3F0 /* Layout.swift in Sources */,
 				D839EB5A1DEF19E100056F4E /* SessionPreset.swift in Sources */,
 				2BD398D81DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift in Sources */,
-				2B9F02D21DF2CB18009C0BB0 /* KoalaFilter.swift in Sources */,
 				D839EB5E1DEF8CEB00056F4E /* CaptureDevice.swift in Sources */,
 				2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */,
-				2B9F02D41DF30330009C0BB0 /* Filterable.swift in Sources */,
 				2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */,
+				2B9F02E11DF30873009C0BB0 /* KoalaFilter.swift in Sources */,
+				2B79EABD1DF30924008B2225 /* FilterDeviceNeeded.swift in Sources */,
 				D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */,
 				2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */,
 				57668CED1DECFDEE0023CD0E /* ViewRepresentation.swift in Sources */,

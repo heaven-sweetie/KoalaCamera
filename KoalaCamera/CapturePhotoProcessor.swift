@@ -38,7 +38,7 @@ class CapturePhotoProcessor: NSObject {
         device = AVCaptureDevice.defaultDevice(withMediaType: mediaType)
         if let device = device, device.hasMediaType(mediaType) {
             session.sessionPreset = AVCaptureSessionPresetPhoto
-            filter = KoalaFilter(device)
+            filter = NoFilter()
             do {
                 let input = try AVCaptureDeviceInput(device: device)
                 session.addInput(input)
@@ -223,4 +223,14 @@ extension UIDevice {
         }
     }
     
+}
+
+extension CapturePhotoProcessor {
+    func setFilter(_ filter: Filterable) {
+        if filter is FilterDeviceNeeded, var filter = filter as? FilterDeviceNeeded {
+            filter.device = device
+        }
+        self.filter = filter
+        
+    }
 }

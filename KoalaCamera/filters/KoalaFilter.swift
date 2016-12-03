@@ -1,5 +1,5 @@
 //
-//  CIKoalaFilter.swift
+//  KoalaFilter.swift
 //  KoalaCamera
 //
 //  Created by KimYong Gyun on 3/12/2016.
