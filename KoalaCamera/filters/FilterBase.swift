@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class CIFilterBase {
+class FilterBase : Filterable {
     let colorClamp : CIFilter! = CIFilter(name: "CIColorClamp")
     let colorControls : CIFilter! = CIFilter(name: "CIColorControls")
     let colorMatrix : CIFilter! = CIFilter(name: "CIColorMatrix")

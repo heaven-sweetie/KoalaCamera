@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class CIKoalaFilter : CIFilterBase {
+class KoalaFilter : FilterBase {
     override func setup() {
         clamp = (
             CIVector(x: 0.1 * calcDeviceBrightness(),

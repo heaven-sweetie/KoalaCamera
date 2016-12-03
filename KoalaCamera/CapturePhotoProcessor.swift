@@ -25,6 +25,8 @@ class CapturePhotoProcessor: NSObject {
     let mediaType = AVMediaTypeVideo
     let saveFileQueue = DispatchQueue(label: "save file")
     
+    var filter : Filterable?
+    
     override init() {
         super.init()
         
@@ -36,6 +38,7 @@ class CapturePhotoProcessor: NSObject {
         device = AVCaptureDevice.defaultDevice(withMediaType: mediaType)
         if let device = device, device.hasMediaType(mediaType) {
             session.sessionPreset = AVCaptureSessionPresetPhoto
+            filter = KoalaFilter(device)
             do {
                 let input = try AVCaptureDeviceInput(device: device)
                 session.addInput(input)
@@ -179,10 +182,8 @@ extension CapturePhotoProcessor {
             return nil
         }
         
-        if let device = device {
-            let filter = CIKoalaFilter(device)
+        if let filter = filter {
             let cameraImage = CIImage(cvPixelBuffer: cvPixelBuffer)
-            
             filter.setImage(cameraImage)
             if let outputImage = filter.outputImage {
                 return outputImage
