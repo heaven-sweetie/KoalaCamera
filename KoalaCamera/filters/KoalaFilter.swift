@@ -12,18 +12,19 @@ import AVKit
 
 class KoalaFilter : FilterBase {
     override func setup() {
+        let b = calcDeviceBrightness()
         clamp = (
-            CIVector(x: 0.1 * calcDeviceBrightness(),
+            CIVector(x: 0.1 * b,
                      y: 0,
-                     z: 0.1 * (1 - calcDeviceBrightness()),
+                     z: 0.1 * (1 - b),
                      w: 0),
-            CIVector(x: 1 - 0.1 * calcDeviceBrightness(),
-                     y: 1 - (0.1 * calcDeviceBrightness() * calcDeviceBrightness()),
+            CIVector(x: 1 - 0.1 * b,
+                     y: 1 - (0.1 * b * b),
                      z: 1,
                      w: 1)
         )
-        saturation = (0.01 * calcDeviceBrightness() + 1) as NSNumber?
-        brightness = (0.07 * calcDeviceBrightness() * calcDeviceBrightness()) as NSNumber?
-        contrast = (1 - 0.05 * calcDeviceBrightness()) as NSNumber?
+        saturation = (0.01 * b + 1) as NSNumber?
+        brightness = (0.07 * b * b) as NSNumber?
+        contrast = (1 - 0.05 * b) as NSNumber?
     }
 }
