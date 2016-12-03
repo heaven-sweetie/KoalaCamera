@@ -132,6 +132,9 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     }
 
     func setupFilter() {
+        if let defaultIndex = UserDefaults.standard.value(forKey: "filter") as? Int {
+            filterIndex = defaultIndex
+        }
         setCurrentFilter()
     }
 
@@ -140,6 +143,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         if filterIndex == filterList.count {
             filterIndex = 0
         }
+        UserDefaults.standard.set(filterIndex, forKey: "filter")
     }
 
     func setCurrentFilter() {
