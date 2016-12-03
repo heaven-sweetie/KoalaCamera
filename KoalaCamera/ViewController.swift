@@ -15,6 +15,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     var layoutManager: LayoutManager!
     
     var pickButton = PickButton()
+    var filterButton = FilterButton()
     var overlayFlashView = OverlayFlashView()
     var cameraView = CameraView()
     
@@ -29,6 +30,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: .touchUpInside)
     }
     
+    func filterButtonConfigure() {
+        filterButton.addTarget(self, action: #selector(tappedFilterButton(sender:)), for: .touchUpInside)
+    }
+
     //    Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,23 +44,32 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
                                                object: nil)
         setupLayout()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         layoutManager.viewDidLayoutSubviews()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         cameraView.setupPreview(frame: self.view.frame)
     }
 
     //  Action
     public func tappedPickButton(sender: UIButton!) {
-        print("Tapped")
+        print("Pick Tapped")
         
         overlayFlashView.blink()
         cameraView.capturePhoto()
+    }
+
+    public func tappedFilterButton(sender: UIButton!) {
+        print("Filter Tapped")
+        if cameraView.captureProcessor.filter is NoFilter {
+            cameraView.captureProcessor.filter = KoalaFilter()
+        } else {
+            cameraView.captureProcessor.filter = NoFilter()
+        }
     }
 
     func applicationDidBecomeActive(notification: NSNotification) {
@@ -83,10 +97,11 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
         layoutManager = LayoutManager(layout: layout)
 
-        layoutManager.add([cameraView, overlayFlashView, pickButton, notAuthorizedView])
+        layoutManager.add([cameraView, overlayFlashView, pickButton, filterButton, notAuthorizedView])
         layoutManager.render()
 
         pickButtonConfigure()
+        filterButtonConfigure()
     }
     
     func updateLayout() {

@@ -34,10 +34,6 @@ class FilterBase : Filterable, FilterDeviceNeeded {
         return resultImage()
     }
     
-    init(_ device: AVCaptureDevice) {
-        self.device = device
-    }
-    
     func setup() {
         
     }

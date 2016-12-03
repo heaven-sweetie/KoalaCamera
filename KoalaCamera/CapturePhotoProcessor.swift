@@ -25,7 +25,12 @@ class CapturePhotoProcessor: NSObject {
     let mediaType = AVMediaTypeVideo
     let saveFileQueue = DispatchQueue(label: "save file")
     
-    var filter : Filterable?
+    var _filter : Filterable?
+
+    var filter : Filterable? {
+        get { return self._filter }
+        set (newFilter) { setFilter(newFilter!) }
+    }
     
     override init() {
         super.init()
@@ -230,7 +235,6 @@ extension CapturePhotoProcessor {
         if filter is FilterDeviceNeeded, var filter = filter as? FilterDeviceNeeded {
             filter.device = device
         }
-        self.filter = filter
-        
+        self._filter = filter
     }
 }
