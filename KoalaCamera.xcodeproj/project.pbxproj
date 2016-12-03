@@ -22,6 +22,7 @@
 		2B9F02E11DF30873009C0BB0 /* KoalaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */; };
 		2B9F02E21DF30873009C0BB0 /* NoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */; };
 		2BB7CF4B1DF3165800710BFB /* Proto1Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7CF4A1DF3165800710BFB /* Proto1Filter.swift */; };
+		2BB7CF4D1DF3219300710BFB /* Proto2Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7CF4C1DF3219300710BFB /* Proto2Filter.swift */; };
 		2BD398D81DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */; };
 		57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CDD1DEBDB9C0023CD0E /* CameraView.swift */; };
 		57668CEB1DECF80F0023CD0E /* CapturePhotoProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */; };
@@ -66,6 +67,7 @@
 		2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KoalaFilter.swift; path = filters/KoalaFilter.swift; sourceTree = "<group>"; };
 		2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoFilter.swift; path = filters/NoFilter.swift; sourceTree = "<group>"; };
 		2BB7CF4A1DF3165800710BFB /* Proto1Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Proto1Filter.swift; path = filters/Proto1Filter.swift; sourceTree = "<group>"; };
+		2BB7CF4C1DF3219300710BFB /* Proto2Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Proto2Filter.swift; sourceTree = "<group>"; };
 		2BD398D71DEED9AF00D004C7 /* PhotoAuthorizationTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAuthorizationTrait.swift; sourceTree = "<group>"; };
 		57668CDD1DEBDB9C0023CD0E /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoProcessor.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				2B9F02DC1DF30873009C0BB0 /* KoalaFilter.swift */,
 				2B9F02DD1DF30873009C0BB0 /* NoFilter.swift */,
 				2BB7CF4A1DF3165800710BFB /* Proto1Filter.swift */,
+				2BB7CF4C1DF3219300710BFB /* Proto2Filter.swift */,
 			);
 			name = filters;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				2B8DA0401DEEC08C001C81EC /* NotAuthorizedView.swift in Sources */,
 				2B3458891DEC5B0A00F8E3F0 /* LayoutManager.swift in Sources */,
 				2B9F02E11DF30873009C0BB0 /* KoalaFilter.swift in Sources */,
+				2BB7CF4D1DF3219300710BFB /* Proto2Filter.swift in Sources */,
 				2B79EABD1DF30924008B2225 /* FilterDeviceNeeded.swift in Sources */,
 				D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */,
 				2B34588B1DEC5B2300F8E3F0 /* DefaultLayout.swift in Sources */,
