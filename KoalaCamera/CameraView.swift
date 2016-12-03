@@ -16,27 +16,12 @@ class CameraView: UIView, FullScreenRepresentation {
 
     var glRenderer: GLRenderer?
 
-    // swiftlint:disable force_cast
-    var previewLayer: AVCaptureVideoPreviewLayer {
-        return layer as! AVCaptureVideoPreviewLayer
-    }
-
     func setupPreview(frame: CGRect) {
-        self.previewLayer.session = captureProcessor.session
         glRenderer = GLRenderer(frame: frame, superview: self)
 
         setupImageView()
         captureProcessor.superview = glRenderer
         captureProcessor.startRunning()
-    }
-
-    var session: AVCaptureSession? {
-        get {
-            return previewLayer.session
-        }
-        set {
-            previewLayer.session = newValue
-        }
     }
 
     override class var layerClass: AnyClass {

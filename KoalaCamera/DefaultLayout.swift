@@ -36,12 +36,7 @@ struct DefaultLayout: Layout {
     }
 
     func updateCameraViewPreviewOrientation(_ element: UIView) {
-        if let cameraView = element as? CameraView {
-            cameraView.previewLayer.frame = cameraView.frame
-            if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
-                cameraView.previewLayer.connection.videoOrientation = videoOrientation
-            }
-        }
+        // FIXME: it should handle GLRenderer now
     }
     
 }

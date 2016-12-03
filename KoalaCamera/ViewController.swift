@@ -117,15 +117,15 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        if let videoPreviewLayerConnection = cameraView.previewLayer.connection {
-            let deviceOrientation = UIDevice.current.orientation
-            guard let newVideoOrientation = deviceOrientation.videoOrientation, deviceOrientation.isPortrait || deviceOrientation.isLandscape else {
-                return
-            }
-            
-            videoPreviewLayerConnection.videoOrientation = newVideoOrientation
-        }
+
+        // FIXME: it should handle GLRenderer now
+//        if let videoPreviewLayerConnection = cameraView.previewLayer.connection {
+//            let deviceOrientation = UIDevice.current.orientation
+//            guard let newVideoOrientation = deviceOrientation.videoOrientation, deviceOrientation.isPortrait || deviceOrientation.isLandscape else {
+//                return
+//            }
+//            videoPreviewLayerConnection.videoOrientation = newVideoOrientation
+//        }
     }
 }
 
