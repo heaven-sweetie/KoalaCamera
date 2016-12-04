@@ -12,16 +12,8 @@ import AVKit
 
 class Proto2Filter : FilterBase {
     override func setup() {
-        let b = calcDeviceBrightness()
-        clamp = (
-            CIVector(x: -1 * b * b + 0.13,
-                     y: 0,
-                     z: 0,
-                     w: 0),
-            CIVector(x: 1,
-                     y: 1,
-                     z: 1 - ( -1 * (b + 0.1) * (b + 0.1) + 0.13),
-                     w: 1)
-        )
+        let b = calcDeviceIso()
+        saturation = (0.65 + 0.3 * (1 - b)) as NSNumber?
+        contrast = (0.65 + 0.3 * (1 - b)) as NSNumber?
     }
 }
