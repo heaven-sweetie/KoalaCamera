@@ -3,7 +3,7 @@
 # hook script for swiftlint. It will triggered when you make a commit.
 #
 # If you want to use, type commands in your console.
-# $ cp pre-commit-swiftlint.sh .git/hooks/pre-commit
+# $ ln -s ../../pre-commit-swiftlint.sh .git/hooks/pre-commit
 # $ chmod +x .git/hooks/pre-commit
 
 LINT=$(which swiftlint)
