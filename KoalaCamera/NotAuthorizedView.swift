@@ -10,7 +10,7 @@ import UIKit
 
 class NotAuthorizedView: UIView {
 
-    let settingButton : UIButton = {
+    let settingButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Go to Setting", for: .normal)
@@ -18,7 +18,7 @@ class NotAuthorizedView: UIView {
         return button
     } ()
 
-    let descriptionLabel : UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "😎\nAllow access to your camera to start taking photos"

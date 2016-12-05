@@ -21,7 +21,7 @@ struct DefaultLayout: Layout {
     func render(_ elements: [UIView]) {
         for element in elements {
             if element is NotAuthorizedView {
-                // FIXME: Do nothing
+                // Do nothing
             } else if let vrElement = element as? ViewRepresentation {
                 view.addSubview(element)
                 vrElement.activateConstraint(in: view)
@@ -36,7 +36,7 @@ struct DefaultLayout: Layout {
     }
 
     func updateCameraViewPreviewOrientation(_ element: UIView) {
-        // FIXME: it should handle GLRenderer now
+        // it should handle GLRenderer now
     }
     
 }

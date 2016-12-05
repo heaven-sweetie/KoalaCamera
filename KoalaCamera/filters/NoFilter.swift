@@ -9,9 +9,9 @@
 import Photos
 import AVKit
 
-class NoFilter : Filterable {
+class NoFilter: Filterable {
 
-    var image : CIImage?
+    var image: CIImage?
     var outputImage: CIImage? {
         return image
     }

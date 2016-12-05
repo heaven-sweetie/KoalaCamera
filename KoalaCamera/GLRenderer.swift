@@ -33,7 +33,6 @@ class GLRenderer {
     func layoutGLView(superview: UIView) {
     }
 
-    
     func renderImage(image: CIImage) {
         if let superview = glView.superview {
             glView.frame = superview.frame

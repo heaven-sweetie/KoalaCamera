@@ -21,17 +21,17 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     
     var notAuthorizedView = NotAuthorizedView()
 
-    var filterIndex : Int = 0
+    var filterIndex: Int = 0
     var filterList = [
         ("😬", NoFilter()),
         ("🐨", KoalaFilter()),
         ("🤔", Proto1Filter()),
-        ("🕵", Proto2Filter()),
+        ("🕵", Proto2Filter())
     ]
         as [(String, Filterable)]
 
     override var prefersStatusBarHidden: Bool {
-        get { return true; }
+        return true
     }
 
     //    UI Configuration
@@ -161,7 +161,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        // FIXME: it should handle GLRenderer now
+        // it should handle GLRenderer now
 //        if let videoPreviewLayerConnection = cameraView.previewLayer.connection {
 //            let deviceOrientation = UIDevice.current.orientation
 //            guard let newVideoOrientation = deviceOrientation.videoOrientation, deviceOrientation.isPortrait || deviceOrientation.isLandscape else {

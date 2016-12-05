@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class Proto2Filter : FilterBase {
+class Proto2Filter: FilterBase {
     override func setup() {
         let b = calcDeviceIso()
         saturation = (0.65 + 0.3 * (1 - b)) as NSNumber?

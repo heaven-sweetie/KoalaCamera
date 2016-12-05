@@ -15,9 +15,9 @@ import GLKit
 class CapturePhotoProcessor: NSObject {
     
     let session = AVCaptureSession()
-    var superview : GLRenderer!
+    var superview: GLRenderer!
     
-    var device : AVCaptureDevice?
+    var device: AVCaptureDevice?
     
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
@@ -25,10 +25,10 @@ class CapturePhotoProcessor: NSObject {
     let mediaType = AVMediaTypeVideo
     let saveFileQueue = DispatchQueue(label: "save file")
     
-    var _filter : Filterable?
+    var actualFilter: Filterable?
 
-    var filter : Filterable? {
-        get { return self._filter }
+    var filter: Filterable? {
+        get { return self.actualFilter }
         set (newFilter) { setFilter(newFilter!) }
     }
     
@@ -169,9 +169,10 @@ extension CapturePhotoProcessor: AVCapturePhotoCaptureDelegate {
     }
 }
 
-
 extension CapturePhotoProcessor: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!,
+                       didOutputSampleBuffer sampleBuffer: CMSampleBuffer!,
+                       from connection: AVCaptureConnection!) {
         if let image = convertSampleBufferToCIImageWithFilter(sampleBuffer) {
             DispatchQueue.main.async {
                 self.superview?.renderImage(image: image)
@@ -235,6 +236,6 @@ extension CapturePhotoProcessor {
         if filter is FilterDeviceNeeded, var filter = filter as? FilterDeviceNeeded {
             filter.device = device
         }
-        self._filter = filter
+        self.actualFilter = filter
     }
 }

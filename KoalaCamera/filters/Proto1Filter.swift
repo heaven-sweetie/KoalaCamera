@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class Proto1Filter : FilterBase {
+class Proto1Filter: FilterBase {
     override func setup() {
         let b = calcDeviceBrightness()
         clamp = (

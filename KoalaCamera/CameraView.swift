@@ -41,7 +41,6 @@ class CameraView: UIView, FullScreenRepresentation {
         self.backgroundColor = UIColor.black
     }
 
-    // FIXME:
     func setupImageView() {
     }
 
@@ -65,7 +64,7 @@ class CameraView: UIView, FullScreenRepresentation {
             return CGAffineTransform.identity
         }
 
-        var transform = CGAffineTransform.identity;
+        var transform = CGAffineTransform.identity
         switch uiimage.imageOrientation {
         case .down, .downMirrored:
             transform = transform.translatedBy(x: uiimage.size.width, y: uiimage.size.height)

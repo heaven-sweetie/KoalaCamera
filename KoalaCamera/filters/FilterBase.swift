@@ -10,21 +10,21 @@ import Foundation
 import Photos
 import AVKit
 
-class FilterBase : Filterable, FilterDeviceNeeded {
-    let colorClamp : CIFilter! = CIFilter(name: "CIColorClamp")
-    let colorControls : CIFilter! = CIFilter(name: "CIColorControls")
-    let colorMatrix : CIFilter! = CIFilter(name: "CIColorMatrix")
+class FilterBase: Filterable, FilterDeviceNeeded {
+    let colorClamp: CIFilter! = CIFilter(name: "CIColorClamp")
+    let colorControls: CIFilter! = CIFilter(name: "CIColorControls")
+    let colorMatrix: CIFilter! = CIFilter(name: "CIColorMatrix")
     
-    var clamp : (CIVector?, CIVector?) = (nil, nil)
+    var clamp: (CIVector?, CIVector?) = (nil, nil)
     
-    var saturation : NSNumber?
-    var brightness : NSNumber?
-    var contrast : NSNumber?
+    var saturation: NSNumber?
+    var brightness: NSNumber?
+    var contrast: NSNumber?
     
     var matrix: (CIVector?, CIVector?, CIVector?, CIVector?, CIVector?) = (nil, nil, nil, nil, nil)
     
-    var image : CIImage!
-    var device : AVCaptureDevice!
+    var image: CIImage!
+    var device: AVCaptureDevice!
     
     var outputImage: CIImage? {
         setup()
@@ -89,13 +89,13 @@ class FilterBase : Filterable, FilterDeviceNeeded {
     }
     
     func calcDeviceExposure () -> CGFloat {
-        let mExposure : CGFloat = 59977000 - 24000
+        let mExposure: CGFloat = 59977000 - 24000
         let exposure = (CGFloat) (device.exposureDuration.value - 24000)
         return exposure / mExposure
     }
     
     func calcDeviceIso () -> CGFloat {
-        let mIso : CGFloat = 2177 - 34
+        let mIso: CGFloat = 2177 - 34
         let iso = (CGFloat) (device.iso - 34)
         return iso / mIso
     }

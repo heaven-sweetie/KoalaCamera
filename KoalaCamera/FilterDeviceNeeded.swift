@@ -10,5 +10,5 @@ import Photos
 import AVKit
 
 protocol FilterDeviceNeeded {
-    var device : AVCaptureDevice! { get set }
+    var device: AVCaptureDevice! { get set }
 }

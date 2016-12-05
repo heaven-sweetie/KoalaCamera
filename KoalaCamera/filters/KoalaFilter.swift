@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import AVKit
 
-class KoalaFilter : FilterBase {
+class KoalaFilter: FilterBase {
     override func setup() {
         let b = calcDeviceBrightness()
         clamp = (
