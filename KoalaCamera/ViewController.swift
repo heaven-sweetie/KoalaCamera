@@ -30,6 +30,8 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     ]
         as [(String, Filterable)]
 
+    private var lastOrientation = UIDeviceOrientation.portrait
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -53,6 +55,8 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
                                                object: nil)
         setupLayout()
         setupFilter()
+        
+        cameraView.setupPreview(frame: self.view.frame)
     }
 
     override func viewDidLayoutSubviews() {
@@ -62,9 +66,16 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        cameraView.setupPreview(frame: self.view.frame)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
+                                               name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                               object: nil)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //  Action
     public func tappedPickButton(sender: UIButton!) {
         print("Pick Tapped")
@@ -154,8 +165,29 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         cameraView.captureProcessor.filter = filter.1
     }
     
+// MARK: - Device Orientation
+    
+    func orientationChanged() {
+        if lastOrientation == UIDevice.current.orientation {
+            return
+        }
+        
+        lastOrientation = UIDevice.current.orientation
+        
+        let transform = CGAffineTransform(rotationAngle: CGFloat(lastOrientation.orientationAngle))
+        
+        UIView.beginAnimations("rotateView", context: nil)
+        UIView.setAnimationCurve(.easeOut)
+        UIView.setAnimationDuration(0.35)
+        
+        pickButton.titleLabel?.transform = transform
+        filterButton.titleLabel?.transform = transform
+        
+        UIView.commitAnimations()
+    }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return .portrait
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -169,29 +201,5 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 //            }
 //            videoPreviewLayerConnection.videoOrientation = newVideoOrientation
 //        }
-    }
-}
-
-extension UIDeviceOrientation {
-    var videoOrientation: AVCaptureVideoOrientation? {
-        switch self {
-        case .portrait: return .portrait
-        case .portraitUpsideDown: return .portraitUpsideDown
-        case .landscapeLeft: return .landscapeRight
-        case .landscapeRight: return .landscapeLeft
-        default: return nil
-        }
-    }
-}
-
-extension UIInterfaceOrientation {
-    var videoOrientation: AVCaptureVideoOrientation? {
-        switch self {
-        case .portrait: return .portrait
-        case .portraitUpsideDown: return .portraitUpsideDown
-        case .landscapeLeft: return .landscapeLeft
-        case .landscapeRight: return .landscapeRight
-        default: return nil
-        }
     }
 }

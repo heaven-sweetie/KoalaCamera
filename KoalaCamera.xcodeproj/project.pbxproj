@@ -36,6 +36,7 @@
 		D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80189141DF19D0100D3D7BA /* GLRenderer.swift */; };
 		D80189181DF1A4A700D3D7BA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189171DF1A4A700D3D7BA /* GLKit.framework */; };
 		D801891A1DF1A4B500D3D7BA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189191DF1A4B500D3D7BA /* OpenGLES.framework */; };
+		D82BE79D1DF6569C0059B6BC /* UIDeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82BE79C1DF6569C0059B6BC /* UIDeviceOrientation.swift */; };
 		D839EB5A1DEF19E100056F4E /* SessionPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB591DEF19E100056F4E /* SessionPreset.swift */; };
 		D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */; };
 		D839EB5E1DEF8CEB00056F4E /* CaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */; };
@@ -85,6 +86,7 @@
 		D80189141DF19D0100D3D7BA /* GLRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderer.swift; sourceTree = "<group>"; };
 		D80189171DF1A4A700D3D7BA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D80189191DF1A4B500D3D7BA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D82BE79C1DF6569C0059B6BC /* UIDeviceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceOrientation.swift; sourceTree = "<group>"; };
 		D839EB591DEF19E100056F4E /* SessionPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPreset.swift; sourceTree = "<group>"; };
 		D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraFocus.swift; sourceTree = "<group>"; };
 		D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureDevice.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		57E7C12B1DE92023007B4C9D /* KoalaCamera */ = {
 			isa = PBXGroup;
 			children = (
+				D82BE79B1DF6569C0059B6BC /* extensions */,
 				2B128A711DF2A1AB00EBF9EE /* filters */,
 				57E7C12C1DE92023007B4C9D /* AppDelegate.swift */,
 				57E7C12E1DE92023007B4C9D /* ViewController.swift */,
@@ -190,6 +193,14 @@
 				D80189171DF1A4A700D3D7BA /* GLKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D82BE79B1DF6569C0059B6BC /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D82BE79C1DF6569C0059B6BC /* UIDeviceOrientation.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,6 +331,7 @@
 				57668CDE1DEBDB9C0023CD0E /* CameraView.swift in Sources */,
 				2B8DA03C1DEEB636001C81EC /* CameraAuthorizationTrait.swift in Sources */,
 				57E7C12F1DE92023007B4C9D /* ViewController.swift in Sources */,
+				D82BE79D1DF6569C0059B6BC /* UIDeviceOrientation.swift in Sources */,
 				D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */,
 				2B79EAC11DF309CE008B2225 /* FilterButton.swift in Sources */,
 				57E7C12D1DE92023007B4C9D /* AppDelegate.swift in Sources */,

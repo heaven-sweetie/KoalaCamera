@@ -33,6 +33,9 @@ class FilterButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = bgcolor
         setTitle(title, for: .normal)
+        
+        titleLabel?.numberOfLines = 0
+        titleLabel?.lineBreakMode = .byWordWrapping
     }
 }
 
