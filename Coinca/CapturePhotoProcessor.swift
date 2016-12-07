@@ -1,6 +1,6 @@
 //
 //  CapturePhotoDelegate.swift
-//  KoalaCamera
+//  Coinca
 //
 //  Created by ParkSunJae on 29/11/2016.
 //  Copyright © 2016 Koala. All rights reserved.

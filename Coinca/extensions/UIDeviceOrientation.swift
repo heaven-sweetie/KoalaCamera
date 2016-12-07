@@ -1,6 +1,6 @@
 //
 //  UIDeviceOrientation.swift
-//  KoalaCamera
+//  Coinca
 //
 //  Created by ParkHanul on 6/12/16.
 //  Copyright © 2016 Koala. All rights reserved.

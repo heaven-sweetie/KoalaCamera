@@ -1,6 +1,6 @@
 //
 //  FilterDeviceNeeded.swift
-//  KoalaCamera
+//  Coinca
 //
 //  Created by KimYong Gyun on 4/12/2016.
 //  Copyright © 2016 Koala. All rights reserved.
