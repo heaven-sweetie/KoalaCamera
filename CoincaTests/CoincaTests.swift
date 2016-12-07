@@ -1,15 +1,15 @@
 //
-//  KoalaCameraTests.swift
-//  KoalaCameraTests
+//  CoincaTests.swift
+//  CoincaTests
 //
 //  Created by ParkSunJae on 26/11/2016.
 //  Copyright © 2016 Koala. All rights reserved.
 //
 
 import XCTest
-@testable import KoalaCamera
+@testable import Coinca
 
-class KoalaCameraTests: XCTestCase {
+class CoincaTests: XCTestCase {
 
     override func setUp() {
         super.setUp()

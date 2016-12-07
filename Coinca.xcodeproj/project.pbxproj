@@ -32,7 +32,7 @@
 		57E7C1321DE92023007B4C9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1301DE92023007B4C9D /* Main.storyboard */; };
 		57E7C1341DE92023007B4C9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1331DE92023007B4C9D /* Assets.xcassets */; };
 		57E7C1371DE92023007B4C9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57E7C1351DE92023007B4C9D /* LaunchScreen.storyboard */; };
-		57E7C1421DE92023007B4C9D /* KoalaCameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */; };
+		57E7C1421DE92023007B4C9D /* CoincaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7C1411DE92023007B4C9D /* CoincaTests.swift */; };
 		D80189151DF19D0100D3D7BA /* GLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80189141DF19D0100D3D7BA /* GLRenderer.swift */; };
 		D80189181DF1A4A700D3D7BA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189171DF1A4A700D3D7BA /* GLKit.framework */; };
 		D801891A1DF1A4B500D3D7BA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80189191DF1A4B500D3D7BA /* OpenGLES.framework */; };
@@ -48,7 +48,7 @@
 			containerPortal = 57E7C1211DE92022007B4C9D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 57E7C1281DE92023007B4C9D;
-			remoteInfo = KoalaCamera;
+			remoteInfo = Coinca;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -81,7 +81,7 @@
 		57E7C1361DE92023007B4C9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57E7C1381DE92023007B4C9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57E7C13D1DE92023007B4C9D /* CoincaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoincaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoalaCameraTests.swift; sourceTree = "<group>"; };
+		57E7C1411DE92023007B4C9D /* CoincaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincaTests.swift; sourceTree = "<group>"; };
 		57E7C1431DE92023007B4C9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D80189141DF19D0100D3D7BA /* GLRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderer.swift; sourceTree = "<group>"; };
 		D80189171DF1A4A700D3D7BA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -162,8 +162,8 @@
 		57E7C1201DE92022007B4C9D = {
 			isa = PBXGroup;
 			children = (
-				57E7C12B1DE92023007B4C9D /* KoalaCamera */,
-				57E7C1401DE92023007B4C9D /* KoalaCameraTests */,
+				57E7C12B1DE92023007B4C9D /* Coinca */,
+				57E7C1401DE92023007B4C9D /* CoincaTests */,
 				57E7C12A1DE92023007B4C9D /* Products */,
 				D80189161DF1A4A700D3D7BA /* Frameworks */,
 			);
@@ -178,7 +178,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		57E7C12B1DE92023007B4C9D /* KoalaCamera */ = {
+		57E7C12B1DE92023007B4C9D /* Coinca */ = {
 			isa = PBXGroup;
 			children = (
 				D82BE79B1DF6569C0059B6BC /* Extensions */,
@@ -206,16 +206,16 @@
 				D80189141DF19D0100D3D7BA /* GLRenderer.swift */,
 				2B79EAC01DF309CE008B2225 /* FilterButton.swift */,
 			);
-			path = KoalaCamera;
+			path = Coinca;
 			sourceTree = "<group>";
 		};
-		57E7C1401DE92023007B4C9D /* KoalaCameraTests */ = {
+		57E7C1401DE92023007B4C9D /* CoincaTests */ = {
 			isa = PBXGroup;
 			children = (
-				57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */,
+				57E7C1411DE92023007B4C9D /* CoincaTests.swift */,
 				57E7C1431DE92023007B4C9D /* Info.plist */,
 			);
-			path = KoalaCameraTests;
+			path = CoincaTests;
 			sourceTree = "<group>";
 		};
 		D80189161DF1A4A700D3D7BA /* Frameworks */ = {
@@ -253,7 +253,7 @@
 			dependencies = (
 			);
 			name = Coinca;
-			productName = KoalaCamera;
+			productName = Coinca;
 			productReference = 57E7C1291DE92023007B4C9D /* Coinca.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -271,7 +271,7 @@
 				57E7C13F1DE92023007B4C9D /* PBXTargetDependency */,
 			);
 			name = CoincaTests;
-			productName = KoalaCameraTests;
+			productName = CoincaTests;
 			productReference = 57E7C13D1DE92023007B4C9D /* CoincaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -287,7 +287,6 @@
 				TargetAttributes = {
 					57E7C1281DE92023007B4C9D = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = U38UC7752H;
 						ProvisioningStyle = Automatic;
 					};
 					57E7C13C1DE92023007B4C9D = {
@@ -392,7 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E7C1421DE92023007B4C9D /* KoalaCameraTests.swift in Sources */,
+				57E7C1421DE92023007B4C9D /* CoincaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,8 +520,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U38UC7752H;
-				INFOPLIST_FILE = KoalaCamera/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Coinca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.Coinca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -534,8 +533,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U38UC7752H;
-				INFOPLIST_FILE = KoalaCamera/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Coinca/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.Coinca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -548,9 +547,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = KoalaCameraTests/Info.plist;
+				INFOPLIST_FILE = CoincaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCameraTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.CoincaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coinca.app/Coinca";
@@ -562,9 +561,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = KoalaCameraTests/Info.plist;
+				INFOPLIST_FILE = CoincaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCameraTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.CoincaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coinca.app/Coinca";
