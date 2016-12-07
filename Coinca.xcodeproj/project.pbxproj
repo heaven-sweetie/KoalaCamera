@@ -73,14 +73,14 @@
 		57668CDD1DEBDB9C0023CD0E /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		57668CEA1DECF80F0023CD0E /* CapturePhotoProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoProcessor.swift; sourceTree = "<group>"; };
 		57668CEC1DECFDEE0023CD0E /* ViewRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRepresentation.swift; sourceTree = "<group>"; };
-		57E7C1291DE92023007B4C9D /* KoalaCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoalaCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E7C1291DE92023007B4C9D /* Coinca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coinca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E7C12C1DE92023007B4C9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57E7C12E1DE92023007B4C9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		57E7C1311DE92023007B4C9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57E7C1331DE92023007B4C9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57E7C1361DE92023007B4C9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57E7C1381DE92023007B4C9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		57E7C13D1DE92023007B4C9D /* KoalaCameraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KoalaCameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E7C13D1DE92023007B4C9D /* CoincaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoincaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E7C1411DE92023007B4C9D /* KoalaCameraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoalaCameraTests.swift; sourceTree = "<group>"; };
 		57E7C1431DE92023007B4C9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D80189141DF19D0100D3D7BA /* GLRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderer.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B128A711DF2A1AB00EBF9EE /* filters */ = {
+		2B128A711DF2A1AB00EBF9EE /* Filters */ = {
 			isa = PBXGroup;
 			children = (
 				2B79EABE1DF30956008B2225 /* Filterable.swift */,
@@ -123,7 +123,40 @@
 				2BB7CF4A1DF3165800710BFB /* Proto1Filter.swift */,
 				2BB7CF4C1DF3219300710BFB /* Proto2Filter.swift */,
 			);
-			name = filters;
+			name = Filters;
+			sourceTree = "<group>";
+		};
+		57838AA11DF82FC700F96852 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				57E7C12C1DE92023007B4C9D /* AppDelegate.swift */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		57838AA21DF82FCD00F96852 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				57E7C1331DE92023007B4C9D /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		57838AA31DF82FD500F96852 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				57E7C1301DE92023007B4C9D /* Main.storyboard */,
+				57E7C1351DE92023007B4C9D /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		57838AA41DF82FDC00F96852 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				57E7C1381DE92023007B4C9D /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		57E7C1201DE92022007B4C9D = {
@@ -139,8 +172,8 @@
 		57E7C12A1DE92023007B4C9D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				57E7C1291DE92023007B4C9D /* KoalaCamera.app */,
-				57E7C13D1DE92023007B4C9D /* KoalaCameraTests.xctest */,
+				57E7C1291DE92023007B4C9D /* Coinca.app */,
+				57E7C13D1DE92023007B4C9D /* CoincaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,14 +181,13 @@
 		57E7C12B1DE92023007B4C9D /* KoalaCamera */ = {
 			isa = PBXGroup;
 			children = (
-				D82BE79B1DF6569C0059B6BC /* extensions */,
-				2B128A711DF2A1AB00EBF9EE /* filters */,
-				57E7C12C1DE92023007B4C9D /* AppDelegate.swift */,
+				D82BE79B1DF6569C0059B6BC /* Extensions */,
+				2B128A711DF2A1AB00EBF9EE /* Filters */,
+				57838AA11DF82FC700F96852 /* App Delegate */,
+				57838AA31DF82FD500F96852 /* Storyboards */,
+				57838AA21DF82FCD00F96852 /* Resources */,
+				57838AA41DF82FDC00F96852 /* Supporting Files */,
 				57E7C12E1DE92023007B4C9D /* ViewController.swift */,
-				57E7C1301DE92023007B4C9D /* Main.storyboard */,
-				57E7C1331DE92023007B4C9D /* Assets.xcassets */,
-				57E7C1351DE92023007B4C9D /* LaunchScreen.storyboard */,
-				57E7C1381DE92023007B4C9D /* Info.plist */,
 				57668CDD1DEBDB9C0023CD0E /* CameraView.swift */,
 				2B3458841DEC52C700F8E3F0 /* OverlayFlashView.swift */,
 				2B3458861DEC57EE00F8E3F0 /* PickButton.swift */,
@@ -195,20 +227,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D82BE79B1DF6569C0059B6BC /* extensions */ = {
+		D82BE79B1DF6569C0059B6BC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				D82BE79C1DF6569C0059B6BC /* UIDeviceOrientation.swift */,
 			);
+			name = Extensions;
 			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		57E7C1281DE92023007B4C9D /* KoalaCamera */ = {
+		57E7C1281DE92023007B4C9D /* Coinca */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 57E7C1461DE92023007B4C9D /* Build configuration list for PBXNativeTarget "KoalaCamera" */;
+			buildConfigurationList = 57E7C1461DE92023007B4C9D /* Build configuration list for PBXNativeTarget "Coinca" */;
 			buildPhases = (
 				57E7C1251DE92023007B4C9D /* Sources */,
 				57E7C1261DE92023007B4C9D /* Frameworks */,
@@ -219,14 +252,14 @@
 			);
 			dependencies = (
 			);
-			name = KoalaCamera;
+			name = Coinca;
 			productName = KoalaCamera;
-			productReference = 57E7C1291DE92023007B4C9D /* KoalaCamera.app */;
+			productReference = 57E7C1291DE92023007B4C9D /* Coinca.app */;
 			productType = "com.apple.product-type.application";
 		};
-		57E7C13C1DE92023007B4C9D /* KoalaCameraTests */ = {
+		57E7C13C1DE92023007B4C9D /* CoincaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 57E7C1491DE92023007B4C9D /* Build configuration list for PBXNativeTarget "KoalaCameraTests" */;
+			buildConfigurationList = 57E7C1491DE92023007B4C9D /* Build configuration list for PBXNativeTarget "CoincaTests" */;
 			buildPhases = (
 				57E7C1391DE92023007B4C9D /* Sources */,
 				57E7C13A1DE92023007B4C9D /* Frameworks */,
@@ -237,9 +270,9 @@
 			dependencies = (
 				57E7C13F1DE92023007B4C9D /* PBXTargetDependency */,
 			);
-			name = KoalaCameraTests;
+			name = CoincaTests;
 			productName = KoalaCameraTests;
-			productReference = 57E7C13D1DE92023007B4C9D /* KoalaCameraTests.xctest */;
+			productReference = 57E7C13D1DE92023007B4C9D /* CoincaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -264,7 +297,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 57E7C1241DE92022007B4C9D /* Build configuration list for PBXProject "KoalaCamera" */;
+			buildConfigurationList = 57E7C1241DE92022007B4C9D /* Build configuration list for PBXProject "Coinca" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -277,8 +310,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				57E7C1281DE92023007B4C9D /* KoalaCamera */,
-				57E7C13C1DE92023007B4C9D /* KoalaCameraTests */,
+				57E7C1281DE92023007B4C9D /* Coinca */,
+				57E7C13C1DE92023007B4C9D /* CoincaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -368,7 +401,7 @@
 /* Begin PBXTargetDependency section */
 		57E7C13F1DE92023007B4C9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 57E7C1281DE92023007B4C9D /* KoalaCamera */;
+			target = 57E7C1281DE92023007B4C9D /* Coinca */;
 			targetProxy = 57E7C13E1DE92023007B4C9D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -491,7 +524,7 @@
 				DEVELOPMENT_TEAM = U38UC7752H;
 				INFOPLIST_FILE = KoalaCamera/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCamera;
+				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.Coinca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -504,7 +537,7 @@
 				DEVELOPMENT_TEAM = U38UC7752H;
 				INFOPLIST_FILE = KoalaCamera/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCamera;
+				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.Coinca;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -520,7 +553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCameraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KoalaCamera.app/KoalaCamera";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coinca.app/Coinca";
 			};
 			name = Debug;
 		};
@@ -534,14 +567,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.koala.melbourne.KoalaCameraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KoalaCamera.app/KoalaCamera";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coinca.app/Coinca";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		57E7C1241DE92022007B4C9D /* Build configuration list for PBXProject "KoalaCamera" */ = {
+		57E7C1241DE92022007B4C9D /* Build configuration list for PBXProject "Coinca" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E7C1441DE92023007B4C9D /* Debug */,
@@ -550,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57E7C1461DE92023007B4C9D /* Build configuration list for PBXNativeTarget "KoalaCamera" */ = {
+		57E7C1461DE92023007B4C9D /* Build configuration list for PBXNativeTarget "Coinca" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E7C1471DE92023007B4C9D /* Debug */,
@@ -559,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57E7C1491DE92023007B4C9D /* Build configuration list for PBXNativeTarget "KoalaCameraTests" */ = {
+		57E7C1491DE92023007B4C9D /* Build configuration list for PBXNativeTarget "CoincaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E7C14A1DE92023007B4C9D /* Debug */,
