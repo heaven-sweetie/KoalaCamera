@@ -11,7 +11,7 @@ import GLKit
 class GLRenderer {
     
     var glView: GLKView
-    var renderContext: CIContext!
+    var renderContext: CIContext
     
     init(glView: GLKView) {
         self.glView = glView
