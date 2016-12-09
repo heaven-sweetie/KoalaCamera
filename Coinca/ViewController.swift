@@ -18,6 +18,7 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     var filterButton = FilterButton()
     var overlayFlashView = OverlayFlashView()
     var cameraView = CameraView()
+    var cameraSwitchButton = CameraSwitchButton()
     
     var notAuthorizedView = NotAuthorizedView()
 
@@ -31,11 +32,14 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         as [(String, Filterable)]
 
     private var lastOrientation = UIDeviceOrientation.portrait
+    private var currentDevicePosition = Device.back
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
 
+    private let sessionQueue = DispatchQueue(label: "SessionQueue", attributes: [], target: nil) // Communicate with the session and other session objects on this queue.
+    
     //    UI Configuration
     func pickButtonConfigure() {
         pickButton.addTarget(self, action: #selector(tappedPickButton(sender:)), for: .touchUpInside)
@@ -43,6 +47,10 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     
     func filterButtonConfigure() {
         filterButton.addTarget(self, action: #selector(tappedFilterButton(sender:)), for: .touchUpInside)
+    }
+    
+    func switchCameraButtonConfigure() {
+        cameraSwitchButton.addTarget(self, action: #selector(changeCamera), for: .touchUpInside)
     }
 
     //    Life Cycle
@@ -89,6 +97,33 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
         nextFilterIndex()
         setCurrentFilter()
     }
+    
+    
+    func changeCamera() {
+        pickButton.isEnabled = false
+        filterButton.isEnabled = false
+        cameraSwitchButton.isEnabled = false
+        
+        sessionQueue.async { [unowned self] in
+            let position: Device = {
+                if self.currentDevicePosition == .back {
+                    return .front
+                } else {
+                    return .back
+                }
+            }()
+            
+            self.cameraView.captureProcessor.switchDevice(position: position) { device in
+                self.currentDevicePosition = device
+            }
+            
+            DispatchQueue.main.async { [unowned self] in
+                self.pickButton.isEnabled = true
+                self.filterButton.isEnabled = true
+                self.cameraSwitchButton.isEnabled = true
+            }
+        }
+    }
 
     func applicationDidBecomeActive(notification: NSNotification) {
         updateLayout()
@@ -115,11 +150,12 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
         layoutManager = LayoutManager(layout: layout)
 
-        layoutManager.add([cameraView, overlayFlashView, pickButton, filterButton, notAuthorizedView])
+        layoutManager.add([cameraView, overlayFlashView, pickButton, filterButton, cameraSwitchButton, notAuthorizedView])
         layoutManager.render()
 
         pickButtonConfigure()
         filterButtonConfigure()
+        switchCameraButtonConfigure()
     }
     
     func updateLayout() {

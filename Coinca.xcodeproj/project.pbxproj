@@ -40,6 +40,7 @@
 		D839EB5A1DEF19E100056F4E /* SessionPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB591DEF19E100056F4E /* SessionPreset.swift */; };
 		D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */; };
 		D839EB5E1DEF8CEB00056F4E /* CaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */; };
+		D8EDD1D51DF9892B0015BB2E /* CameraSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EDD1D41DF9892B0015BB2E /* CameraSwitchButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		D839EB591DEF19E100056F4E /* SessionPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPreset.swift; sourceTree = "<group>"; };
 		D839EB5B1DEF8B7600056F4E /* CameraFocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraFocus.swift; sourceTree = "<group>"; };
 		D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureDevice.swift; sourceTree = "<group>"; };
+		D8EDD1D41DF9892B0015BB2E /* CameraSwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraSwitchButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 				D839EB5D1DEF8CEB00056F4E /* CaptureDevice.swift */,
 				D80189141DF19D0100D3D7BA /* GLRenderer.swift */,
 				2B79EAC01DF309CE008B2225 /* FilterButton.swift */,
+				D8EDD1D41DF9892B0015BB2E /* CameraSwitchButton.swift */,
 			);
 			path = Coinca;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				57E7C12F1DE92023007B4C9D /* ViewController.swift in Sources */,
 				D82BE79D1DF6569C0059B6BC /* UIDeviceOrientation.swift in Sources */,
 				D839EB5C1DEF8B7600056F4E /* CameraFocus.swift in Sources */,
+				D8EDD1D51DF9892B0015BB2E /* CameraSwitchButton.swift in Sources */,
 				2B79EAC11DF309CE008B2225 /* FilterButton.swift in Sources */,
 				57E7C12D1DE92023007B4C9D /* AppDelegate.swift in Sources */,
 				2B9F02E21DF30873009C0BB0 /* NoFilter.swift in Sources */,

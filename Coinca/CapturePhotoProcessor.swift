@@ -17,12 +17,13 @@ class CapturePhotoProcessor: NSObject {
     let session = AVCaptureSession()
     var superview: GLRenderer!
     
-    var device: AVCaptureDevice?
+    var device = CaptrueDeivce()
     
     var photoSampleBuffer: CMSampleBuffer?
     var previewPhotoSampleBuffer: CMSampleBuffer?
     
-    let mediaType = AVMediaTypeVideo
+    var videoDeviceInput: AVCaptureDeviceInput!
+    
     let saveFileQueue = DispatchQueue(label: "save file")
     
     var actualFilter: Filterable?
@@ -40,24 +41,59 @@ class CapturePhotoProcessor: NSObject {
     
     //    CaptureSession Configuration
     func setupCaptureSession() {
-        device = AVCaptureDevice.defaultDevice(withMediaType: mediaType)
-        if let device = device, device.hasMediaType(mediaType) {
+        session.beginConfiguration()
+        
+        do {
+            defer {
+                session.commitConfiguration()
+            }
+            
+            let videoDeviceInput = try AVCaptureDeviceInput(device: device.currentDevice)
+
+            if session.canAddInput(videoDeviceInput) {
+                session.addInput(videoDeviceInput)
+                self.videoDeviceInput = videoDeviceInput
+            }
+            
             session.sessionPreset = AVCaptureSessionPresetPhoto
             filter = NoFilter()
-            do {
-                let input = try AVCaptureDeviceInput(device: device)
-                session.addInput(input)
-                let output = AVCapturePhotoOutput()
-                let videoOutput = AVCaptureVideoDataOutput()
-                videoOutput.setSampleBufferDelegate(self,
-                                                    queue: DispatchQueue(label: "sample buffer delegate"))
-                session.addOutput(output)
-                session.addOutput(videoOutput)
-            } catch let error {
-                print(error)
+            
+            let output = AVCapturePhotoOutput()
+            let videoOutput = AVCaptureVideoDataOutput()
+            videoOutput.setSampleBufferDelegate(self,
+                                                queue: DispatchQueue(label: "sample buffer delegate"))
+            session.addOutput(output)
+            session.addOutput(videoOutput)
+            
+        } catch {
+            print("Could not create video device input: \(error)")
+        }
+    }
+    
+    func switchDevice(position: Device, complete: (Device) -> ()) {
+        device.switchDevice(devicePosition: position)
+        
+        session.beginConfiguration()
+        
+        do {
+            
+            defer {
+                session.commitConfiguration()
             }
-        } else {
-            print("Device hasn't media type")
+            
+            let videoDeviceInput = try AVCaptureDeviceInput(device: device.currentDevice)
+            
+            self.session.removeInput(self.videoDeviceInput)
+            
+            if session.canAddInput(videoDeviceInput) {
+                session.addInput(videoDeviceInput)
+                self.videoDeviceInput = videoDeviceInput
+            }
+            
+            complete(device.currentPosition)
+            
+        } catch {
+            print("Could not create video device input: \(error)")
         }
     }
     
@@ -234,7 +270,7 @@ extension UIDevice {
 extension CapturePhotoProcessor {
     func setFilter(_ filter: Filterable) {
         if filter is FilterDeviceNeeded, var filter = filter as? FilterDeviceNeeded {
-            filter.device = device
+            filter.device = device.currentDevice
         }
         self.actualFilter = filter
     }
