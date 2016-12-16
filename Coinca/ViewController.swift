@@ -12,6 +12,7 @@ import Photos
 
 class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthorizationTrait {
     
+    var filterManager: FilterManager!
     var layoutManager: LayoutManager!
     
     var pickButton = PickButton()
@@ -21,15 +22,6 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
     var cameraSwitchButton = CameraSwitchButton()
     
     var notAuthorizedView = NotAuthorizedView()
-
-    var filterIndex: Int = 0
-    var filterList = [
-        ("😬", NoFilter()),
-        ("🐨", KoalaFilter()),
-        ("🤔", Proto1Filter()),
-        ("🕵", Proto2Filter())
-    ]
-        as [(String, Filterable)]
 
     private var lastOrientation = UIDeviceOrientation.portrait
     private var currentDevicePosition = Device.back
@@ -94,10 +86,9 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
     public func tappedFilterButton(sender: UIButton!) {
         print("Filter Tapped")
-        nextFilterIndex()
-        setCurrentFilter()
+        
+        filterManager.next()
     }
-    
     
     func changeCamera() {
         pickButton.isEnabled = false
@@ -179,26 +170,17 @@ class ViewController: UIViewController, CameraAuthorizationTrait, PhotoAuthoriza
 
         layoutManager.updateLayout(layout: layout)
     }
-
+    
     func setupFilter() {
-        if let defaultIndex = UserDefaults.standard.value(forKey: "filter") as? Int {
-            filterIndex = defaultIndex
-        }
-        setCurrentFilter()
+        filterManager = FilterManager()
+        filterManager.changedCurrentFilter = updateCurrentFilter
+        
+        updateCurrentFilter(name: filterManager.current.0, filter: filterManager.current.1)
     }
-
-    func nextFilterIndex() {
-        filterIndex += 1
-        if filterIndex == filterList.count {
-            filterIndex = 0
-        }
-        UserDefaults.standard.set(filterIndex, forKey: "filter")
-    }
-
-    func setCurrentFilter() {
-        let filter = filterList[filterIndex]
-        filterButton.setTitle(filter.0, for: .normal)
-        cameraView.captureProcessor.filter = filter.1
+    
+    func updateCurrentFilter(name: String, filter: Filterable) {
+        filterButton.setTitle(name, for: .normal)
+        cameraView.captureProcessor.filter = filter
     }
     
 // MARK: - Device Orientation
